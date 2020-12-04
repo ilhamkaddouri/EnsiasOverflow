@@ -1,17 +1,24 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import Register from '../auth/Register'
+import Footer from './Footer'
 
 function Landing() {
     return (
-        <div className="container col-lg-12">
-            <section className="col-lg-6">
-                <h1 className="label">Bienvenu au EnsiasOverflow</h1>
-                <p>Votre propre monde professionel</p>
-            </section>
-            <section className="col-lg-6">
-                <Register/>
-            </section>
-        </div>
+        <Fragment>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg logan">
+                        <h1 className="label">Bienvenu au EnsiasOverflow</h1>
+                        <p>Votre propre monde professionel</p>
+                    </div>
+                    <div class="col-lg">
+                        <Register/>
+                    </div>
+                </div>  
+            </div>
+            <Footer/>
+        </Fragment>
+        
     )
 }
 

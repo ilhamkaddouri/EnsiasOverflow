@@ -2,13 +2,14 @@ import React,{Fragment} from 'react'
 import {Link} from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../layout/layout.css'
+import logo from '../../images/1.png'
 export const  Navbar = ()=> {
     
     return (
-        <nav class="navbar navbar-expand-lg bg-light">
+        <nav class="navbar navbar-expand-lg">
            <h1>
                 <Link to='/'>
-                    EnsiasOverflow
+                    <img src={logo} alt="logo" className="logo"/>
                 </Link>
             </h1>
            

@@ -4,8 +4,8 @@ import {Link} from "react-router-dom"
 function Register() {
     return (
         <Fragment>
-            <section className="auth">
-                <h1 className="label">Sign Up</h1>
+            <section>
+                <h1 className="label text-primary">Sign Up</h1>
                 <p className='lead'>
                     <i className='fas fa-user'></i> Sign Into Your Account
                 </p>
@@ -35,7 +35,7 @@ function Register() {
                     <input type="password" className="form-control" id="exampleInputPassword1" placeholder="******"/>
                 </div>
                 
-                <button type="submit" className="btn">Sign up</button>
+                <button type="submit" className="btn btn-primary">Sign up</button>
                 </form>
                 <p >
                     Already have an account?

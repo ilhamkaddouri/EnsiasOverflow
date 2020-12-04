@@ -1,4 +1,21 @@
 h1{
-    color:#CD5C5C;
+   
     text-decoration: none;
 }
+
+.logo{
+    width: 200px;
+    height: 50px;
+}
+
+.logan{
+    text-align: center;
+    align-items: center;
+    
+    
+}
+
+.container-fluid{
+    position: relative;
+}
+
