@@ -19,7 +19,7 @@ app.use(express.json())
 //Route middleware
 app.use('/api/user',authRoute)
 app.use('/api/posts',postRouter)
-
-app.listen(5000,()=>{
+const PORT = process.env.PORT || 5000
+app.listen(PORT,()=>{
     console.log('app runing')
 })
