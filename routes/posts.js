@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const verify = require('./verifytoken');
+const verify = require('../validation/verifytoken');
 
 router.get('/get',verify,(req,res)=>{
     res.json({

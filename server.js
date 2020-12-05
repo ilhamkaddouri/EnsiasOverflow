@@ -6,7 +6,8 @@ require('dotenv').config();
 
 //Import routes
 const authRoute = require('./routes/auth');
-const postRouter = require('./routes/posts')
+const postRouter = require('./routes/posts');
+const questionRouter = require('./routes/questions')
 
 //Connect to DB
 const uri = process.env.URI;
@@ -19,6 +20,9 @@ app.use(express.json())
 //Route middleware
 app.use('/api/user',authRoute)
 app.use('/api/posts',postRouter)
+app.use('/api/questions',questionRouter)
+
+
 const PORT = process.env.PORT || 5000
 app.listen(PORT,()=>{
     console.log('app runing')
