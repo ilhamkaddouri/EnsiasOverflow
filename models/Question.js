@@ -8,12 +8,28 @@ const QuestionSchema = new mongoose.Schema({
     title:{
         type: String,
         required: true,
-        min:10
+    
     },
     description :{
         type: String,
         
     },
+    responses:[
+        {
+            user: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'user'
+            },
+            contenu: {
+                type: String,
+                required: true
+            },
+            date: {
+                type: Date,
+                default: Date.now
+            }
+        }
+    ],
     date:{
         default: Date.now,
         type:Date
