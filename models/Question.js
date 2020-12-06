@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const QuestionSchema = new mongoose.Schema({
     user:{
         type: mongoose.Schema.Types.ObjectId,
-        ref : 'User'
+        ref : 'User',
     },
     title:{
         type: String,
@@ -18,7 +18,7 @@ const QuestionSchema = new mongoose.Schema({
         {
             user: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: 'user'
+                ref: 'User'
             },
             contenu: {
                 type: String,
