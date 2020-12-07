@@ -185,13 +185,20 @@ router.put('/like/:questionid/responses/:responseid',verify,async (req,res)=>{
     try{
         const question = await Question.findById(req.params.questionid)
         if(!question) return res.send({msg : "question not found"})
-
-        if(question.likes.filter(like => like.user.toString() === req.user._id).length>0){
-            return res.status(400).json({msg : "question already liked"})
+        const response = question.responses.filter(response=> response._id.toString() === req.params.responseid)
+        console.log(response)
+        if(response.likes.filter(like => like.user.toString()=== req.user._id).length>0){
+            return res.status(401),json({msg : "response already liked"})
         }
-        question.likes.unshift({user : req.user._id})
-        await question.save()
-        res.json(question.likes)
+
+        response.likes.unshift({user : req.user._id})
+        res.json(response.likes)
+        // if(question.responses.filter(response => response.user.toString() === req.user._id).length>0){
+        //     return res.status(400).json({msg : "response already liked"})
+        // }
+        // question.likes.unshift({user : req.user._id})
+        // await question.save()
+        // res.json(question.likes)
     }catch(err){
         console.error(err.message);
         res.status(500).send('Server error.');
