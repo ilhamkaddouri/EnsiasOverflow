@@ -14,6 +14,22 @@ const QuestionSchema = new mongoose.Schema({
         type: String,
         
     },
+    likes: [
+        {
+            user: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'User'
+            }
+        }
+    ],
+    dislikes: [
+        {
+            user: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'User'
+            }
+        }
+    ],
     responses:[
         {
             user: {
@@ -28,6 +44,14 @@ const QuestionSchema = new mongoose.Schema({
                 type: String,
                 required:true
             },
+            likes: [
+                {
+                    user: {
+                        type: mongoose.Schema.Types.ObjectId,
+                        ref: 'User'
+                    }
+                }
+            ],
             date: {
                 type: Date,
                 default: Date.now

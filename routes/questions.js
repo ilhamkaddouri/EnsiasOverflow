@@ -137,4 +137,88 @@ router.get('/reponses/:questionid',async (req,res)=>{
     }
 })
 
+// @route       PUT api/questions/like/:questionid
+// @desc        like a question
+// @access      Private
+router.put('/like/:questionid',verify,async (req,res)=>{
+    try{
+        const question = await Question.findById(req.params.questionid)
+        if(!question) return res.send({msg : "question not found"})
+
+        if(question.likes.filter(like => like.user.toString() === req.user._id).length>0){
+            return res.status(400).json({msg : "question already liked"})
+        }
+        question.likes.unshift({user : req.user._id})
+        await question.save()
+        res.json(question.likes)
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('Server error.');
+    }
+})
+
+// @route       PUT api/questions/like/:questionid
+// @desc        unlike a question
+// @access      Private
+router.put('/unlike/:questionid',verify,async (req,res)=>{
+    try{
+        const question = await Question.findById(req.params.questionid)
+        if(!question) return res.send({msg : "question not found"})
+
+        if(question.likes.filter(like => like.user.toString() === req.user._id).length === 0){
+            return res.status(400).json({msg : "question not liked yet"})
+        }
+        const item = question.likes.map(like => like.user).indexOf(req.user._id);
+        question.likes.splice(item,1)
+        await question.save()
+        res.json(question.likes)
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('Server error.');
+    }
+})
+
+// @route       PUT api/questions/like/:questionid/responses/:responseid
+// @desc        like a question
+// @access      Private
+router.put('/like/:questionid/responses/:responseid',verify,async (req,res)=>{
+    try{
+        const question = await Question.findById(req.params.questionid)
+        if(!question) return res.send({msg : "question not found"})
+
+        if(question.likes.filter(like => like.user.toString() === req.user._id).length>0){
+            return res.status(400).json({msg : "question already liked"})
+        }
+        question.likes.unshift({user : req.user._id})
+        await question.save()
+        res.json(question.likes)
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('Server error.');
+    }
+})
+
+
+// @route       PUT api/questions/unlike/:questionid/responses/:responseid
+// @desc        unlike a response
+// @access      Private
+router.put('/unlike/:questionid/responses/:responseid',verify,async (req,res)=>{
+    try{
+        const question = await Question.findById(req.params.questionid)
+        if(!question) return res.send({msg : "question not found"})
+
+        if(question.likes.filter(like => like.user.toString() === req.user._id).length === 0){
+            return res.status(400).json({msg : "question not liked yet"})
+        }
+        const item = question.likes.map(like => like.user).indexOf(req.user._id);
+        question.likes.splice(item,1)
+        await question.save()
+        res.json(question.likes)
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('Server error.');
+    }
+})
+
+
 module.exports=router
