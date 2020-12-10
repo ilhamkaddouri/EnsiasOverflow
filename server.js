@@ -1,6 +1,7 @@
 const express=require('express');
 const app = express();
 const mongoose = require('mongoose');
+const cors = require('cors')
 //Call the env
 require('dotenv').config();
 
@@ -17,6 +18,8 @@ mongoose.connect(uri,{useUnifiedTopology: true,useNewUrlParser: true,useCreateIn
 
 //Middleware
 app.use(express.json())
+app.use(cors());
+
 //Route middleware
 app.use('/api/user',authRoute)
 app.use('/api/posts',postRouter)
