@@ -1,8 +1,10 @@
-import React ,{Fragment} from 'react'
+import React ,{Fragment, useState} from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../auth/auth.css';
 import {Link} from "react-router-dom"
 function Login() {
+    const [formData,setformData] = useState({})
+    const [email,password] = formData
     return (
         <Fragment>
             <section className="auth">
