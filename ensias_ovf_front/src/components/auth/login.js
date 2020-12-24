@@ -22,6 +22,8 @@ export default function Login() {
     console.log("submitted");
     try {
       const loginUser = { email, password };
+       //* Here we call an instance of the server route that will proceed the request of type post
+       //* using AXIOS */
       const loginRes = await Axios.post(
         "http://localhost:5000/api/user/login",
         loginUser
