@@ -131,7 +131,7 @@ router.post('/login', async(req,res)=>{
 try{
     const { email, password } = req.body;
 
-
+// ***** Checking if all fields have been entered  */
     if (!email || !password)
       return res.status(400).json({ msg: "Not all fields have been entered." });
 
@@ -139,12 +139,12 @@ try{
    /*  const {error} = LoginVal(req.body);
      if(error) return res.status(400).send(error.details[0].message);
 */
-      //cheking email exists or not
+      // **** Cheking email exists or not  **// 
     const user = await User.findOne({email :req.body.email});
     if(!user) return res.status(400)
     .json({ msg: "No account with this email has been registered." });
 
-        //password is correct
+        //** Checking if password is correct
     const validPass = await bcrypt.compare(req.body.password,user.password);
     if(!validPass) return res.status(400).json({ msg: "Invalid credentials." });
         //create and assign a token

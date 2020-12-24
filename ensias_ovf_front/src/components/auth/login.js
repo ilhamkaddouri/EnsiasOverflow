@@ -27,14 +27,13 @@ export default function Login() {
       const loginRes = await Axios.post(
         "http://localhost:5000/api/user/login",
         loginUser
-        
+
       );
       setUserData({
         token: loginRes.data.token,
         user: loginRes.data.user.id,
       });
-      localStorage.setItem("auth-token", loginRes.data.token);
-     
+      localStorage.setItem("auth-token", loginRes.data.token); 
       history.push("/");
     } catch (err) {
       //* **If an error is catched we setError(response.data.msg) to be displayed** 
