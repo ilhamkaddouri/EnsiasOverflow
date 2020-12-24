@@ -27,6 +27,7 @@ export default function Login() {
       const loginRes = await Axios.post(
         "http://localhost:5000/api/user/login",
         loginUser
+        
       );
       setUserData({
         token: loginRes.data.token,
