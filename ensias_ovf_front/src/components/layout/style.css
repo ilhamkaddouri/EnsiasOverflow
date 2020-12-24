@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+* {
+    margin : 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+    font-family: 'Lato', sans-serif;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+a {
+    color: #2199df;
+    text-decoration: unset;
+}
+
+ul{
+    margin-left: 1.5rem;
+    list-style: none;
+}
+
+button, input[type="submit"]{
+    border: none;
+    background: none;
+    color: unset;
+    cursor: pointer;
+
+}
+
+h1,h2,h3,h4,h5,h6, ul, ol{
+    margin: 1em 0;
+}
+
+#header{
+    height: 50px;
+    display: flex;
+    background-color: rgb(241, 242, 243);
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+#header .title{
+    margin: 0;
+    font-size: 1.2rem;
+    padding: 0 1rem;
+    color: rgb(30, 66, 99);
+}
+
+#header .title:hover{
+    text-decoration: none;
+    
+}
+body{
+    font-family: 'Lato', sans-serif;
+    margin: 0 0 100px;
+}
+
+#header .auth-options{
+    display: flex;
+    height: 100%;
+}
+
+#header .auth-options button {
+    color:  rgb(15, 49, 160);
+    padding: 0 1rem;
+    margin-left: 10px;
+}
+
+#header .auth-options button:hover{
+    color: #2199df;
+}
+
+@media screen and (max-width: 550px)
+{
+    #header .title{
+        color: #000;
+        font-size: 1.2rem;
+    }
+}
+
+.container {
+    max-width: 900px;
+}
+
+#err_message{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+#err_message button {
+background-color: rgb(238, 75, 75);
+width : 30px;
+height : 30px;
+border-radius: 50%;
+color:rgb(255, 255, 255);
+}
+#succ_message {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#succ_message button {
+    background-color: rgb(60, 131, 54);
+    width : 30px;
+    height : 30px;
+    border-radius: 50%;
+    color:rgb(255, 255, 255);
+    }
+    
+#link_signin{
+    color: rgb(18, 65, 21);
+    margin-left: 20px;
+    
+    /* / */
+}
+
+#footer{
+    background-color: rgb(43, 30, 7);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+   
+}
