@@ -3,6 +3,7 @@ const User = require('../model/user');
 const Question = require('../model/question');
 
 const verify = require('../routes/verifyToken');
+const { findById } = require('../model/user');
 
 router.get('/', verify, (req,res)=>{
     // res.json({posts : 
@@ -13,6 +14,7 @@ router.get('/', verify, (req,res)=>{
     res.send(req.user); // The user_id is accessible to all the routes that verify the token 
 });
 
+
 router.post('/ask',verify,async(req,res)=>{
     // const user_id = await User.findOne({user_id :req.body.user_id});
     // if(!user_id) {
@@ -22,10 +24,12 @@ router.post('/ask',verify,async(req,res)=>{
     let title = req.body.qst_title;
     let content = req.body.qst_content;
 
-    const result = await User.find({}, null, { sort: { email: 1 }});
-    console.log(result[0].username); // 'A'
+    // const result = await User.find({}, null, { sort: { email: 1 }});
+    const result = await User.findById(user_id);
+    console.log(result.username);
 
     const question = new Question({user : user_id, qst_title : title, 
+        username : result.username,
         qst_content : content });
 
     try{
@@ -41,8 +45,14 @@ router.post('/ask',verify,async(req,res)=>{
 
 router.get("/all",async(req,res) =>
 {
+    try{
         const questions = await Question.find();
         res.json(questions);
+    }catch(err)
+    {
+        res.status(500).send(err);
+    }
+       
 }
 )
 

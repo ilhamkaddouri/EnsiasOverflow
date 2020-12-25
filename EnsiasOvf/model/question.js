@@ -5,6 +5,9 @@ const questionSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref : 'user',
     },
+    username: {
+        type : String,
+    },
     qst_title:{
         type : String, 
         required : true,

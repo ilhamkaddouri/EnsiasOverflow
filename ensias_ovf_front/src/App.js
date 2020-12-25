@@ -10,10 +10,25 @@ import "./components/layout/style.css";
 import "./components/pages/pages.css";
 import UserContext from "./context/UserContext";
 import Post_question from "./components/pages/post_question";
+import Questions from "./components/pages/questions";
 
 export default function App() {
 
- 
+  // state = {
+  //   questions : [],
+  // }
+//  getQuestion = () => {
+//     Axios.get('http://localhost:5000/api/posts/all').then((response)=>{
+//       const data = response.data;
+//       console.log("Data received :) ! ");
+//       this.setState({questions : data});
+//       console.log(data);
+//     }).catch(()=>{
+//       console.log("Problem receiving data");
+//     })
+//  }
+
+
 
     const [userData,setUserData] = useState({
         token : undefined,
@@ -63,7 +78,8 @@ export default function App() {
           <Route exact path="/" component={home} />
           <Route path="/login" component={login} />
           <Route path="/register" component={register} />
-          {/* <Route path="/posts/ask" component={Post_question}/> */}
+          <Route path="/posts/ask" component={Post_question}/>
+          <Route path="/posts/all" component={Questions}/>
         </Switch>
         
         </UserContext.Provider>
