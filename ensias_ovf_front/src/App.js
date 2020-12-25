@@ -63,7 +63,7 @@ export default function App() {
           <Route exact path="/" component={home} />
           <Route path="/login" component={login} />
           <Route path="/register" component={register} />
-          <Route path="/posts/ask" component={Post_question}/>
+          {/* <Route path="/posts/ask" component={Post_question}/> */}
         </Switch>
         
         </UserContext.Provider>

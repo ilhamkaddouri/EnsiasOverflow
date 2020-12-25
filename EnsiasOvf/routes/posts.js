@@ -4,7 +4,7 @@ const Question = require('../model/question');
 
 const verify = require('../routes/verifyToken');
 
-router.get('/', (req,res)=>{
+router.get('/', verify, (req,res)=>{
     // res.json({posts : 
     //     {
     //       title : 'my first post',
@@ -38,5 +38,18 @@ router.post('/ask',verify,async(req,res)=>{
     }
 
 });
+
+router.get("/all",async(req,res) =>
+{
+        const questions = await Question.find();
+        res.json(questions);
+}
+)
+
+router.get("/my_question", verify, async(req,res)=>
+{
+    const questions = await Question.find({user : req.user});
+    res.json(questions);
+})
 
 module.exports = router;
