@@ -71,23 +71,7 @@ router.post('/register',async(req,res)=>
 })
 
 router.post('/verifytoken', async(req, res)=>{
-    
-    // try{
-    //     const token = req.header("auth-token");
-    //     if(!token) return res.send("no token");
-
-    //     const verified = jwt.verify(token, process.env.TOKEN_SECRET);
-    //     if (!verified) return res.send("this is a bad token");
-
-    //     const user = await User.findById(verified.id);
-    //     if(!user) return res.send("this isnt the token");
-
-    //     return res.json("Token verified");
-    // }
-    // catch(err)
-    // {
-    //     res.status(500).json({error : err.message})
-    // }
+  
 
     try {
         const token = req.header('auth-token');
@@ -114,7 +98,7 @@ router.get('/', verify, async (req,res) => {
     const user = await User.findById(req.user);
     res.json(
         {
-            name : user.name,
+            username : user.username,
             id : user._id, 
         }
     );

@@ -7,9 +7,13 @@ import home from "./components/pages/home";
 import login from "./components/auth/login";
 import register from "./components/auth/reg";
 import "./components/layout/style.css";
+import "./components/pages/pages.css";
 import UserContext from "./context/UserContext";
+import Post_question from "./components/pages/post_question";
 
 export default function App() {
+
+ 
 
     const [userData,setUserData] = useState({
         token : undefined,
@@ -41,6 +45,7 @@ export default function App() {
                  token,
                  user : userRes.data,
              })
+            
          }
          };
     
@@ -53,11 +58,12 @@ export default function App() {
 <BrowserRouter>
 <UserContext.Provider value={{ userData, setUserData}}>
       <Header></Header>
-      
+     
         <Switch>
           <Route exact path="/" component={home} />
           <Route path="/login" component={login} />
           <Route path="/register" component={register} />
+          <Route path="/posts/ask" component={Post_question}/>
         </Switch>
         
         </UserContext.Provider>

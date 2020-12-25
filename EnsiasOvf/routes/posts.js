@@ -13,16 +13,18 @@ router.get('/', (req,res)=>{
     res.send(req.user); // The user_id is accessible to all the routes that verify the token 
 });
 
-router.post('/ask',async(req,res)=>{
+router.post('/ask',verify,async(req,res)=>{
     // const user_id = await User.findOne({user_id :req.body.user_id});
     // if(!user_id) {
     //     res.status(400)
     // }
-    let user_id = req.body.user_id;
-    
+    let user_id = req.user;
     let title = req.body.qst_title;
     let content = req.body.qst_content;
-  
+
+    const result = await User.find({}, null, { sort: { email: 1 }});
+    console.log(result[0].username); // 'A'
+
     const question = new Question({user : user_id, qst_title : title, 
         qst_content : content });
 

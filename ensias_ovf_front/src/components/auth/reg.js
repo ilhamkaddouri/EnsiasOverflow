@@ -8,6 +8,7 @@ import SuccessNotice from "../misc/SuccessNotice";
 import Footer from "../layout/Footer";
 
 function Register() {
+  /** Tracking the states of the form */
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [passwordCheck, setPasswordCheck] = useState();
@@ -16,10 +17,12 @@ function Register() {
   const [lname, setLastName] = useState();
   const [error, setError] = useState();
 
+  /** Successful registration of account */
   const [success, setSuccess] = useState();
 
+  /** Successful registration of account */
   const { setUserData } = useContext(UserContext);
-  const history = useHistory();
+  // const history = useHistory();
 
   const submit = async (e) => {
     e.preventDefault();
