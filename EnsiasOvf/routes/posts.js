@@ -48,8 +48,9 @@ router.get("/all",async(req,res) =>
 
 router.get("/my_question", verify, async(req,res)=>
 {
-    const questions = await Question.find({user : req.user});
-    res.json(questions);
+    const question = await Question.find({user : req.user});
+    res.json(question);
 })
+
 
 module.exports = router;
