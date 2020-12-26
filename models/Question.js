@@ -3,30 +3,31 @@ const mongoose = require('mongoose');
 const QuestionSchema = new mongoose.Schema({
     user:{
         type: mongoose.Schema.Types.ObjectId,
-        ref : 'User',
+        ref : 'user',
     },
-    title:{
+    qst_title:{
         type: String,
         required: true,
     
     },
-    description :{
+    qst_content :{
         type: String,
+        required:true
         
     },
-    likes: [
+    qst_likes: [
         {
             user: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: 'User'
+                ref: 'user'
             }
         }
     ],
-    dislikes: [
+    qst_dislikes: [
         {
             user: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: 'User'
+                ref: 'user'
             }
         }
     ],
@@ -34,9 +35,9 @@ const QuestionSchema = new mongoose.Schema({
         {
             user: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: 'User'
+                ref: 'user'
             },
-            contenu: {
+            rep_content: {
                 type: String,
                 required: true
             },
@@ -44,23 +45,31 @@ const QuestionSchema = new mongoose.Schema({
                 type: String,
                 required:true
             },
-            likes: [
+            rep_likes: [
                 {
                     user: {
                         type: mongoose.Schema.Types.ObjectId,
-                        ref: 'User'
+                        ref: 'user'
                     }
                 }
             ],
-            date: {
+            rep_dislikes: [
+                {
+                    user: {
+                        type: mongoose.Schema.Types.ObjectId,
+                        ref: 'user'
+                    }
+                }
+            ],
+            rep_date: {
                 type: Date,
                 default: Date.now
             }
         }
     ],
-    date:{
+    asked_date:{
         default: Date.now,
         type:Date
     }
 })
-module.exports = mongoose.model('Question',QuestionSchema)
+module.exports = mongoose.model('question',QuestionSchema)

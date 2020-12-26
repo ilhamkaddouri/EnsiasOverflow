@@ -4,17 +4,27 @@ const User = require('../models/User');
 const Reponse = require('../models/Reponse')
 const verify = require('../validation/verifytoken');
 
+
+router.get('/', verify, (req,res)=>{
+    // res.json({posts : 
+    //     {
+    //       title : 'my first post',
+    //       description : 'Random data you should not have access to without being logged in'
+    // }})
+    res.send(req.user._id); // The user_id is accessible to all the routes that verify the token 
+});
+
+
 // @route       GET api/questions
 // @desc        get all questions
 // @access      public
-router.get('/',async (req,res)=>{
+router.get('/all',async (req,res)=>{
 
     try{
-      
         const questions = await Question.find();
         res.json(questions)
     }catch(err){
-        res.status(401).send({mesg:err})
+        res.status(404).send({mesg:err})
     }
 })
 
@@ -44,12 +54,12 @@ router.get('/:questionId',async (req,res)=>{
 // @route       POST api/questions
 // @desc        post a question
 // @access      Private
-router.post('/',verify,async (req,res)=>{
+router.post('/ask',verify,async (req,res)=>{
     try{
-       console.log(req.user._id)
+       
         const newQuestion = new Question({
-            title: req.body.title,
-            description: req.body.description,
+            qst_title: req.body.qst_title,
+            qst_content: req.body.qst_content,
             user: req.user._id
         });
         const question = await newQuestion.save();

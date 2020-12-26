@@ -2,26 +2,31 @@ import React ,{Fragment, useState} from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../auth/auth.css';
 import {Link} from "react-router-dom";
-import {login} from './../actions/auth';
-function Login({login}) {
-    const [formData,setformData] = useState({email:"",password:""})
-    const [error,setError] = useState("")
+
+
+function Login() {
+    const [formData,setFormData] = useState({email:"",password:""})
+    
     const [email,password] = formData
 
-    const login = details =>{
-        console.log(details)
-    }
     const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    const login = e =>{
+    const submit = e =>{
         e.preventDefault();
-        login({email,password})
+        //login({email,password})
+        // try{
+        //     const loginUser ={email , password};
+        //     const loginRes = await Axios.post('http://localhost:5000/api/user/login',loginUser);
+
+        // }catch(err){
+
+        // }
     }
     return (
         <Fragment>
             <section className="auth">
                 <h1><i className="fab fa-user"></i>Log In</h1>
-                <form submit={e => login(e)}>
+                <form submit={e => submit(e)}>
                 <div className="form-group">
                     <label for="exampleInputEmail1">Email address</label>
                     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" onChange={e => onChange(e)} value={email}/>
@@ -31,8 +36,8 @@ function Login({login}) {
                     <label for="exampleInputPassword1">Password</label>
                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" onChange={e => onChange(e)} value={password}/>
                 </div>
-               
-                    <button type="submit" class="btn btn-primary">Log in</button>
+            
+                <button type="submit" class="btn btn-primary">Log in</button>
                 </form>
                 <p className='my-1'>
                     Don't have an account?

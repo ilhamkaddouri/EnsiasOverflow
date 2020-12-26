@@ -22,7 +22,7 @@ app.use(cors());
 
 //Route middleware
 app.use('/api/user',authRoute)
-app.use('/api/posts',postRouter)
+//app.use('/api/posts',postRouter)
 app.use('/api/questions',questionRouter)
 
 
