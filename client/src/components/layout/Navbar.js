@@ -6,7 +6,7 @@ import logo from '../../images/1.png'
 export const  Navbar = ()=> {
     
     return (
-        <nav class="navbar navbar-expand-lg">
+        <nav className="navbar navbar-expand-lg">
            <h1>
                 <Link to='/'>
                     <img src={logo} alt="logo" className="logo"/>

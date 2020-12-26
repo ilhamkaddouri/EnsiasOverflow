@@ -22,8 +22,12 @@ router.get('/all',async (req,res)=>{
 
     try{
         const questions = await Question.find();
-        res.json(questions)
+        
+        res.json(questions 
+        )
+        
     }catch(err){
+        console.log(err)
         res.status(404).send({mesg:err})
     }
 })
@@ -121,7 +125,7 @@ router.post('/respond/:questionid',verify,async (req,res)=>{
         const newReponse = {
             user : user._id,
             name: user.name,
-            contenu: req.body.contenu,
+            rep_content: req.body.rep_content,
         };
         
         question.responses.unshift(newReponse);

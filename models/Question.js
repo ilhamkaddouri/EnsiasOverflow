@@ -43,7 +43,7 @@ const QuestionSchema = new mongoose.Schema({
             },
             name:{
                 type: String,
-                required:true
+                
             },
             rep_likes: [
                 {
