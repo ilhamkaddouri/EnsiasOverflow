@@ -10,7 +10,7 @@ dotenv.config();
 /**Import routes
  */
 const authRoute = require('./routes/auth');
-const postRoute = require('./routes/posts')
+const postRoute = require('./routes/posts');
 
 // Connect to DataBase
 

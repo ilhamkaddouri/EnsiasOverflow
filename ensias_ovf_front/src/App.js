@@ -32,7 +32,7 @@ export default function App() {
 
     const [userData,setUserData] = useState({
         token : undefined,
-        user : undefined, //user email
+        user : undefined, //user 
     });
 
 
@@ -49,7 +49,7 @@ export default function App() {
              null,
              {headers : { "auth-token": token}}
          );
-         console.log(tokenRes.data);
+        //  console.log(tokenRes.data);
          if (tokenRes.data)
          {
              const userRes = await Axios.get("http://localhost:5000/api/user/",
@@ -78,6 +78,7 @@ export default function App() {
           <Route exact path="/" component={home} />
           <Route path="/login" component={login} />
           <Route path="/register" component={register} />
+          {/* check logged in */}
           <Route path="/posts/ask" component={Post_question}/>
           <Route path="/posts/all" component={Questions}/>
         </Switch>

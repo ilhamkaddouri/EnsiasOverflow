@@ -120,9 +120,9 @@ try{
       return res.status(400).json({ msg: "Not all fields have been entered." });
 
 
-   /*  const {error} = LoginVal(req.body);
+     const {error} = LoginVal(req.body);
      if(error) return res.status(400).send(error.details[0].message);
-*/
+
       // **** Cheking email exists or not  **// 
     const user = await User.findOne({email :req.body.email});
     if(!user) return res.status(400)

@@ -14,7 +14,7 @@ router.get('/', verify, (req,res)=>{
     res.send(req.user); // The user_id is accessible to all the routes that verify the token 
 });
 
-
+/** to ask questions */
 router.post('/ask',verify,async(req,res)=>{
     // const user_id = await User.findOne({user_id :req.body.user_id});
     // if(!user_id) {
@@ -23,12 +23,17 @@ router.post('/ask',verify,async(req,res)=>{
     let user_id = req.user;
     let title = req.body.qst_title;
     let content = req.body.qst_content;
+    
+    if (!title || !content)
+    return res.status(400).json({ msg: "Not all fields have been entered." });
 
     // const result = await User.find({}, null, { sort: { email: 1 }});
     const result = await User.findById(user_id);
     console.log(result.username);
 
-    const question = new Question({user : user_id, qst_title : title, 
+    const question = new Question({
+        user : user_id, 
+        qst_title : title, 
         username : result.username,
         qst_content : content });
 
@@ -42,7 +47,7 @@ router.post('/ask',verify,async(req,res)=>{
     }
 
 });
-
+/** to get all questions */
 router.get("/all",async(req,res) =>
 {
     try{
@@ -56,10 +61,22 @@ router.get("/all",async(req,res) =>
 }
 )
 
-router.get("/my_question", verify, async(req,res)=>
+/** Gets the question by its id */
+router.get("/all/qst", async(req,res)=>
 {
-    const question = await Question.find({user : req.user});
-    res.json(question);
+    try{
+        const qst = await Question.findById({ _id : req.body.id })
+        res.json(qst);
+    }catch(err){
+        res.status(500).json({msg : err.message});
+    }
+    
+})
+
+router.get("/my_questions", verify, async(req,res)=>
+{
+    const questions = await Question.find({user : req.user});
+    res.json(questions);
 })
 
 
