@@ -7,32 +7,15 @@ const ReponseSchema = new mongoose.Schema({
     },
     question :{
         type : mongoose.Schema.Types.ObjectId,
-        ref: 'question'
+        ref: 'Question'
     },
     contenu : {
-        type : String, 
-        required : true,
+
     },
     date :{
         type : Date,
-        default : Date.now
-    },
-    likes: [
-        {
-            user: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'user'
-            }
-        }
-    ],
-    dislikes: [
-        {
-            user: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'user'
-            }
-        }
-    ],
+    }
 })
+
 
 module.exports = mongoose.model('reponse',ReponseSchema);
