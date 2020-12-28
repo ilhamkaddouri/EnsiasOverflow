@@ -96,13 +96,15 @@ import QuestionItem from "../pages/QuestionItem";
 
 const Questions = () => {
     const [likedQuestions, setLikedQuestions] = React.useState([]);
+    const [dislikedQuestions, setDislikedQuestions] = React.useState([]);
+
     const [qsts,setQsts] = useState([])
     const [user,setUser] = useState({})
     useEffect(() => {
         axios.get('http://localhost:5000/api/posts/all')
         .then(res => {setQsts(res.data) })
         .catch(err => console.log(err))
-    }, [qsts]);
+    }, []);
 
 
     return (
@@ -112,9 +114,11 @@ const Questions = () => {
             {qsts.map(qst => (
                 <QuestionItem
                 setLikedQuestions={setLikedQuestions} 
+                setDislikedQuestions={setDislikedQuestions} 
                 key={qst._id} 
                 qst={qst}
                 likedQuestions={likedQuestions}
+                dislikedQuestions={dislikedQuestions}
                 />
             ))}
             </div>

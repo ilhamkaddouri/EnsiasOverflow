@@ -178,7 +178,7 @@ router.get('/reponses/:questionid',async (req,res)=>{
 });
 
 /**
- **Upvote a question
+ *Upvote a question
  */
 
 // @route       PUT api/posts/like/:questionid
@@ -214,14 +214,16 @@ router.put('/unlike/:questionid',verify,async (req,res)=>{
         const question = await Question.findById(req.params.questionid)
         if(!question) return res.send({msg : "question not found"})
 
-        if(question.qst_likes.filter(like => like.user.toString() === req.user._id).length === 0){
+        if(question.qst_likes.filter(like => like.user.toString() === req.user._id).length === 0)
+        {
             return res.status(400).json({msg : "question not liked yet"})
         }
+
         const item = question.qst_likes.map(like => like.user).indexOf(req.user._id);
         question.qst_likes.splice(item,1)
         question.qst_dislikes.unshift({user : req.user._id})
         await question.save()
-        res.json(question.qst_likes)
+        res.json(question.qst_dislikes)
     }catch(err){
         console.error(err.message);
         res.status(500).send('Server error.');
