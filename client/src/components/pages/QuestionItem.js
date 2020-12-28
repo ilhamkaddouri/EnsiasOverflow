@@ -1,41 +1,56 @@
-import React, { Fragment, useState} from "react";
+import React, { Fragment, useState } from "react";
 import { Container, Button } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import "font-awesome/css/font-awesome.min.css";
 import { Link } from "react-router-dom";
-import axios from "axios"
+import axios from "axios";
 
-function QuestionItem({ qst, LikedQuestions, setLikedQuestions }) {
-    const { _id, user, qst__title, username,qst_content,qst_likes, qst_dislikes, asked_date} = qst;
-    // const [isLiked, updateLike] = useState(false);
-    const handleLike = () => {
-        const id = _id;
-        axios.put('/posts/like/'+id, 
-        null, 
-        // 
-        { headers: { "auth-token": localStorage.getItem("auth-token") } })
-        .then(res => { setLikedQuestions(res) })
-        .catch(err => console.log(err))
-        console.log(id);
-        // let currentLikedQuestions = LikedQuestions;
-        // console.log(currentLikedQuestions);
-    }
+function QuestionItem({ qst }) {
+  /**
+   * Here we Initialize the states with the Number values :
+   *  Like & dislike which we call in the render method
+   */
+  const [like, setlikes] = useState([qst.qst_likes.length]);
+  const [dislike, setdislikes] = useState([qst.qst_dislikes.length]);
 
-    const handleDislike = () => {
-        const id = _id;
-        axios.put('/posts/unlike/'+id, 
-        null,
-        { headers: { "auth-token": localStorage.getItem("auth-token") } }
-        ).then(res => { setLikedQuestions(res) })
-        .catch(err => console.log(err))
-    }
+  const handleLike = (id) => {
+    // const id = _id;
+    axios
+      .put("/posts/like/" + id, null, {
+        headers: { "auth-token": localStorage.getItem("auth-token") },
+      })
+      .then((result) => {
+        console.log();
+        const newLikes = result.data.qst_likes.length;
+        setlikes([newLikes]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
+  const handleDislike = (id) => {
+    axios
+      .put("/posts/unlike/" + id, null, {
+        headers: { "auth-token": localStorage.getItem("auth-token") },
+      })
+      .then((result) => {
+        /**
+         * Here the result displays the dislikes.lenght
+         */
+        const newDislikes = result.data;
+        setdislikes(newDislikes);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <Fragment>
       <Card style={{ width: "70vw" }}>
         <Card.Body>
-        <Card.Title>{qst.qst_title}</Card.Title>
+          <Card.Title>{qst.qst_title}</Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
             Asked by :<Card.Link href="#LinktoUser"> {qst.username} </Card.Link>
           </Card.Subtitle>
@@ -45,13 +60,30 @@ function QuestionItem({ qst, LikedQuestions, setLikedQuestions }) {
           </Card.Subtitle>
           <Card.Text>{qst.qst_content}</Card.Text>
           <div className="ml-auto">
-            <button type="button" className="btn btn-light" onClick={handleLike} >
-              <i className="fa fa-thumbs-up"></i>{" "}
-              {qst.qst_likes.length > 0 && <span>{qst.qst_likes.length}</span>}
+            <button
+              type="button"
+              className="btn btn-light"
+              onClick={() => {
+                handleLike(qst._id);
+              }}
+            >
+              <i className="fa fa-thumbs-up"></i> 
+              /** Here we changed to the
+              state above have */
+              <span> {like} </span>
             </button>
-            <button type="button" className="btn btn-light" onClick={handleDislike}>
-              <i className="fa fa-thumbs-down"></i> {" "}
-              {qst.qst_dislikes.length > 0 && <span>{qst.qst_dislikes.length}</span>}
+            <button
+              type="button"
+              className="btn btn-light"
+              onClick={() => {
+                handleDislike(qst._id);
+              }}
+            >
+              <i className="fa fa-thumbs-down"></i>{" "}
+              {qst.qst_dislikes.length > 0 && (
+                /**  Here  we changed to the state above have */
+                <span> {dislike}</span>
+              )}
             </button>
             <Link to={`/posts/${qst._id}`} className="btn btn-primary">
               View answers{" "}
