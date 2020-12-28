@@ -68,8 +68,7 @@ function QuestionItem({ qst }) {
               }}
             >
               <i className="fa fa-thumbs-up"></i> 
-              /** Here we changed to the
-              state above have */
+            
               <span> {like} </span>
             </button>
             <button
@@ -81,7 +80,6 @@ function QuestionItem({ qst }) {
             >
               <i className="fa fa-thumbs-down"></i>{" "}
               {qst.qst_dislikes.length > 0 && (
-                /**  Here  we changed to the state above have */
                 <span> {dislike}</span>
               )}
             </button>
