@@ -293,23 +293,23 @@ router.put("/like/:questionid", verify, async (req, res) => {
 
 router.put("/unlike/:questionid", verify, async (req, res) => {
   try{
-  const question = await Question.findById(req.params.questionid);
-  if (!question) return res.send({ msg: "question not found" });
+  const qst = await Question.findById(req.params.questionid);
+  if (!qst) return res.send({ msg: "question not found" });
 
   if (
-    question.qst_likes.filter((like) => like.user.toString() === req.user._id)
+    qst.qst_likes.filter((like) => like.user.toString() === req.user._id)
       .length === 0
   ) {
-    return res.status(400).json({ msg: "question not liked yet" });
+    return res.status(400).json({ msg: "qst not liked yet" });
   }
 
 
-  console.log(question.qst_dislikes.length);
-  const item = question.qst_likes.map(like => like.user).indexOf(req.user._id);
-  question.qst_likes.splice(item,1)
-  question.qst_dislikes.unshift({user : req.user._id})
-  await question.save()
-  res.json(question.qst_dislikes.length)
+  console.log(qst.qst_dislikes.length);
+  const item = qst.qst_likes.map(like => like.user).indexOf(req.user._id);
+  qst.qst_likes.splice(item,1)
+  qst.qst_dislikes.unshift({user : req.user._id})
+  await qst.save()
+  res.json(qst)
   }catch(err){
       console.error(err.message);
       res.status(500).send('Server error.');

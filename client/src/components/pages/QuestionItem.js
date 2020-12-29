@@ -36,9 +36,9 @@ function QuestionItem({ qst }) {
         headers: { "auth-token": localStorage.getItem("auth-token") },
       })
       .then((result) => {
-        // console.log();
-        const newLikes = result.data.qst_likes.length;
-        setlikes([newLikes]);
+        // console.log(result.data.qst_likes.length);
+        setlikes(result.data.qst_likes.length);
+        setdislikes(result.data.qst_dislikes.length);
       })
       .catch((err) => {
         console.log(err);
@@ -54,8 +54,9 @@ function QuestionItem({ qst }) {
         /**
          * Here the result displays the dislikes.lenght
          */
-        const newDislikes = result.data;
-        setdislikes(newDislikes);
+        // console.log(result.data.qst_likes.length);
+        setlikes(result.data.qst_likes.length);
+        setdislikes(result.data.qst_dislikes.length);
       })
       .catch((err) => {
         console.log(err);
