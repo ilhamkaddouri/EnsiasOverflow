@@ -8,7 +8,7 @@ const QuestionItem =({question}) => {
           <Card.Body>
 
             <Card.Subtitle className="mb-2 text-muted">
-              Asked by :<Card.Link href="#LinktoUser"> </Card.Link>
+              Asked by :<Card.Link href="#LinktoUser"> {question.username}</Card.Link>
             </Card.Subtitle>
             <Card.Subtitle className="mb-1 text-muted">             
               On : {question.asked_date}

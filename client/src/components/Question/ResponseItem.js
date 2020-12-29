@@ -40,7 +40,7 @@ const ResponseItem = ({ response, questionId }) => {
       <Card style={{ width: "70vw", margin: "5px", borderColor: "black" }}>
         <Card.Body>
           <Card.Subtitle className="mb-2 text-muted">
-           Answered by :<Card.Link href="#LinktoUser"> </Card.Link>
+           Answered by :<Card.Link href="#LinktoUser"> {response.username} </Card.Link>
           </Card.Subtitle>
           <Card.Subtitle className="mb-1 text-muted">
             {" "}

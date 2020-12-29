@@ -5,10 +5,13 @@ const QuestionSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref : 'user',
     },
+    username: {
+        type:String,
+        required : 'true'
+    },
     qst_title:{
         type: String,
         required: true,
-    
     },
     qst_content :{
         type: String,
@@ -36,6 +39,10 @@ const QuestionSchema = new mongoose.Schema({
             user: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'user'
+            },
+            username: {
+                type : String,
+                required: true
             },
             rep_content: {
                 type: String,
