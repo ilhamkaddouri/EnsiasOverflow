@@ -36,7 +36,7 @@ function QuestionItem({ qst }) {
         headers: { "auth-token": localStorage.getItem("auth-token") },
       })
       .then((result) => {
-        console.log();
+        // console.log();
         const newLikes = result.data.qst_likes.length;
         setlikes([newLikes]);
       })
