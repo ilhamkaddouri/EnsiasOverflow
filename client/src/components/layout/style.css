@@ -91,16 +91,21 @@ body{
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    
 }
 
 #err_message button {
-background-color: rgb(238, 75, 75);
+background-color: rgb(233, 78, 78);
 width : 30px;
 height : 30px;
 border-radius: 50%;
-color:rgb(255, 255, 255);
+color:rgb(255, 247, 247);
 }
+
+#err_message button:hover{
+    background-color: rgb(197, 21, 21);
+    }
+    
 #succ_message {
     display: flex;
     justify-content: space-between;
@@ -115,10 +120,9 @@ color:rgb(255, 255, 255);
     }
     
 #link_signin{
-    color: rgb(18, 65, 21);
-    margin-left: 20px;
-    
-    /* / */
+    color: rgb(165, 55, 36);
+    margin-left: 5px;
+    font-size: 1.1em;
 }
 
 #footer{

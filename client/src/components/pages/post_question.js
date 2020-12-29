@@ -14,7 +14,6 @@ export default function Post_question() {
   const [qst_title, setTitle] = useState();
   const [qst_content, setContent] = useState();
 
-  
   /** Error posting the question */
   const [error, setError] = useState();
 
@@ -24,16 +23,19 @@ export default function Post_question() {
   const submit = async (e) => {
     e.preventDefault();
     try {
+      const token = localStorage.getItem("auth-token");
+      if (token == "") {
+        setError("Log in to ask a question. ");
+      }
+
       const newQuestion = {
         qst_title,
         qst_content,
       };
 
-      const postres = await Axios.post(
-        "http://localhost:5000/api/posts/ask",
-        newQuestion,
-        { headers: { "auth-token": localStorage.getItem("auth-token") } }
-      );
+      const postres = await Axios.post("/posts/ask", newQuestion, {
+        headers: { "auth-token": localStorage.getItem("auth-token") },
+      });
 
       if (postres) {
         setSuccess("Question posted successfully !");
@@ -48,19 +50,23 @@ export default function Post_question() {
         <div className="container">
           <form onSubmit={submit}>
             <h1 className="label text-primary"> Got a question ?</h1>
+        
             {success && (
               <SuccessNotice
                 message={success}
                 clearError={() => setSuccess(undefined)}
               />
             )}
+            
+            <div className="form-group">
             {error && (
               <ErrorNotice
                 message={error}
-                clearError={() => setError(undefined)}
+                clearError={() => setError(undefined)
+                }
+                link ="Sign in here"
               />
             )}
-            <div className="form-group">
               <label for="qst_title">Question title</label>
               <input
                 type="text"

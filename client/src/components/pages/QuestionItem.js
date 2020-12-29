@@ -68,6 +68,7 @@ function QuestionItem({ qst }) {
       <Card style={{ width: "70vw" ,borderColor:'black', margin:'5px'}}>
         <Card.Body>
           <Card.Title>{qst.qst_title}</Card.Title>
+          
           <Card.Subtitle className="mb-2 text-muted">
             Asked by :<Card.Link href="#LinktoUser"> {qst.username} </Card.Link>
           </Card.Subtitle>

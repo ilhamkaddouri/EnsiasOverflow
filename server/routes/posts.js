@@ -244,7 +244,7 @@ router.put("/like/:questionid", verify, async (req, res) => {
         .length > 0
     ) {
       return res.status(400).json({ msg: "question already liked" });
-      
+
       /**
        * Here we need to dislike 
        */
@@ -352,7 +352,10 @@ router.put(
           (like) => like.user.toString() === req.user._id
         ).length > 0
       ) {
-        return res.status(400).json({ msg: "response already liked" });
+        return res
+      .status(400)
+      .json({ msg: "Response already liked." });
+        // return res.status(400).json({ msg: "response already liked" });
       }
       console.log(response[0].rep_likes);
       response[0].rep_likes.unshift({ user: req.user._id });
