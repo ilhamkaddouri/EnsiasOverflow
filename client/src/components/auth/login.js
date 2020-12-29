@@ -33,7 +33,7 @@ export default function Login() {
      
       history.push("/");
     } catch (err) {
-      //* **If an error is catched we setError(response.data.msg) to be displayed** 
+    
       err.response.data.msg && setError(err.response.data.msg);
     }
   };

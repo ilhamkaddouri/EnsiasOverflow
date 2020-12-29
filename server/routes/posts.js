@@ -56,14 +56,69 @@ router.get("/all", async (req, res) => {
 });
 
 /** Displays the question by its id */
-router.get("/all/qst", async (req, res) => {
-  try {
-    const qst = await Question.findById({ _id: req.body.id });
-    res.json(qst);
-  } catch (err) {
-    res.status(500).json({ msg: err.message });
-  }
-});
+// router.get("/all/qst", async (req, res) => {
+//   try {
+//     const qst = await Question.findById({ _id: req.body.id });
+//     res.json(qst);
+//   } catch (err) {
+//     res.status(500).json({ msg: err.message });
+//   }
+// });
+
+
+
+
+// @route       GET api/questions/:questionid
+// @desc        find a question by id
+// @access      public
+router.get('/:questionId',async (req,res)=>{
+    try{
+        const question = await Question.findById(req.params.questionId);
+        if (!question) {
+            return res.status(404).json({ msg: 'Question not found.' });
+        }
+        res.send(question);
+    }catch(err){
+        res.status(401).send({nsg:err})
+    }
+})
+
+// @route       POST api/questions/respond/:questionid
+// @desc        respond to a question
+// @access      Private
+router.post('/respond/:questionid',verify,async (req,res)=>{
+       
+    try{
+        const user = await User.findById(req.user);
+        const question = await Question.findById(req.params.questionid)
+        console.log(user)
+        const newReponse = {
+            user : req.user,
+            rep_content: req.body.rep_content,
+        };
+        
+        question.responses.unshift(newReponse);
+        await question.save();
+       
+        res.json(question.responses)
+    }catch(err){
+        console.error("erre"+
+        err.message);
+        //res.status(400).send('Server error.');
+    }
+})
+
+
+
+
+
+
+
+
+
+
+
+
 
 /** Display one user's questions */
 router.get("/my_questions", verify, async (req, res) => {
@@ -122,6 +177,7 @@ router.put("/:questionid", verify, async (req, res) => {
   }
 });
 
+
 /** Respond to a question * */
 // @route       POST api/questions/respond/:questionid
 // @desc        respond to a question
@@ -136,7 +192,6 @@ router.post("/respond/:questionid", verify, async (req, res) => {
       name: user.name,
       rep_content: req.body.rep_content,
     };
-
     question.responses.unshift(newReponse);
     await question.save();
 
@@ -162,6 +217,31 @@ router.get("/reponses/:questionid", async (req, res) => {
     res.status(400).send("Server error.");
   }
 });
+
+
+/** Get if user already liked the question */
+router.get("/like/:questionid", verify, async (req, res) => {
+        try {
+            const qst = await Question.findById(req.params.questionid);
+            if (!qst) return res.send({ msg: "question not found" });
+            if (
+              qst.qst_likes.filter((like) => like.user.toString() === req.user._id)
+                .length > 0
+            ) {
+              return res.json({ 
+                  "liked" : 1,
+               });
+            }
+          } catch (err) {
+            console.error(err.message);
+            res.status(500).send(err);
+          }
+
+
+        })
+ // **
+
+ // **
 
 /**
  *Upvote a question

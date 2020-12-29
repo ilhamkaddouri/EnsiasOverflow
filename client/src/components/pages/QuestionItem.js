@@ -13,6 +13,22 @@ function QuestionItem({ qst }) {
   const [like, setlikes] = useState([qst.qst_likes.length]);
   const [dislike, setdislikes] = useState([qst.qst_dislikes.length]);
 
+  //   useEffect(() => {
+  //     axios.get('h')
+  //     .then(res => {setQsts(res.data) })
+  //     .catch(err => console.log(err))
+  // }, []);
+
+  // useEffect(() => {
+  //   axios
+  //     .get("/posts/like")
+  //     .then((res) => {
+  //       setQsts(res.data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
+
+
   const handleLike = (id) => {
     // const id = _id;
     axios
@@ -48,7 +64,7 @@ function QuestionItem({ qst }) {
 
   return (
     <Fragment>
-      <Card style={{ width: "70vw" }}>
+      <Card style={{ width: "70vw" ,borderColor:'black', margin:'5px'}}>
         <Card.Body>
           <Card.Title>{qst.qst_title}</Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
@@ -62,28 +78,28 @@ function QuestionItem({ qst }) {
           <div className="ml-auto">
             <button
               type="button"
-              className="btn btn-light"
+              className="btn btn-success mr-2"
               onClick={() => {
                 handleLike(qst._id);
               }}
             >
-              <i className="fa fa-thumbs-up"></i> 
-            
+              <i className="fa fa-thumbs-up"></i>
+
               <span> {like} </span>
             </button>
             <button
               type="button"
-              className="btn btn-light"
+              className="btn btn-danger"
               onClick={() => {
                 handleDislike(qst._id);
               }}
             >
               <i className="fa fa-thumbs-down"></i>{" "}
-              {qst.qst_dislikes.length > 0 && (
-                <span> {dislike}</span>
-              )}
+              {qst.qst_dislikes.length > 0 && <span> {dislike}</span>}
             </button>
-            <Link to={`/posts/${qst._id}`} className="btn btn-primary">
+            <Link to={`/posts/${qst._id}`} 
+            className="btn btn-outline-success margin"
+           >
               View answers{" "}
               {qst.responses.length > 0 && (
                 <span className="comment-count">{qst.responses.length}</span>
@@ -92,6 +108,9 @@ function QuestionItem({ qst }) {
           </div>
         </Card.Body>
       </Card>
+      <>
+      <br></br>
+      </>
     </Fragment>
   );
 }

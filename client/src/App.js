@@ -11,7 +11,7 @@ import "./components/pages/pages.css";
 import UserContext from "./context/UserContext";
 import Post_question from "./components/pages/post_question";
 import Questions from "./components/pages/questions";
-
+import Question from "./components/Question/Question"
 export default function App() {
 
   // state = {
@@ -27,8 +27,6 @@ export default function App() {
 //       console.log("Problem receiving data");
 //     })
 //  }
-
-
 
     const [userData,setUserData] = useState({
         token : undefined,
@@ -81,6 +79,7 @@ export default function App() {
           {/* check logged in */}
           <Route path="/posts/ask" component={Post_question}/>
           <Route path="/posts/all" component={Questions}/>
+          <Route path="/posts/:id" component={Question}/>
         </Switch>
         
         </UserContext.Provider>

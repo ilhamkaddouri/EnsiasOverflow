@@ -8,7 +8,7 @@ const Questions = () => {
     const [qsts,setQsts] = useState([])
     const [user,setUser] = useState({})
     useEffect(() => {
-        axios.get('http://localhost:5000/api/posts/all')
+        axios.get('/posts/all')
         .then(res => {setQsts(res.data) })
         .catch(err => console.log(err))
     }, []);
