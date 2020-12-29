@@ -115,11 +115,6 @@ router.post('/respond/:questionid',verify,async (req,res)=>{
 
 
 
-
-
-
-
-
 /** Display one user's questions */
 router.get("/my_questions", verify, async (req, res) => {
   const questions = await Question.find({ user: req.user });
@@ -321,39 +316,39 @@ router.put("/unlike/:questionid", verify, async (req, res) => {
   }
 });
 
+
+
+
+
 /**
  * Upvote a response to a question
  */
 // @route       PUT api/questions/like/:questionid/responses/:responseid
 // @desc        like a response of a question
 // @access      Private
-router.put(
-  "/like/:questionid/responses/:responseid",
-  verify,
-  async (req, res) => {
-    try {
-      const question = await Question.findById(req.params.questionid);
-      if (!question) return res.send({ msg: "question not found" });
-      const response = question.responses.filter(
-        (response) => response._id.toString() === req.params.responseid
-      );
-      if (
-        response[0].likes.filter(
-          (like) => like.user.toString() === req.user._id
-        ).length > 0
-      ) {
-        return res.status(400).json({ msg: "response already liked" });
-      }
-      console.log(response[0].likes);
-      response[0].likes.unshift({ user: req.user._id });
-      await question.save();
-      res.json(response.likes);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send("Server error.");
+router.put('/like/:questionid/responses/:responseid',verify,async (req,res)=>{
+    try{
+        const question = await Question.findById(req.params.questionid)
+        if(!question) return res.send({msg : "question not found"})
+        const response = question.responses.filter(response=> response._id.toString() === req.params.responseid)
+        console.log(response)
+        if(response[0].rep_likes.filter(like => like.user.toString() === req.user._id).length>0){
+            return res.status(400).json({msg : "response already liked"})
+        }
+        console.log(response[0].rep_likes)
+        response[0].rep_likes.unshift({user : req.user._id})
+        await question.save()
+        res.json(response.rep_likes)
+        
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('Server error.');
     }
-  }
-);
+})
+
+
+
+
 
 /**
  * Downvote a response to a question
@@ -372,20 +367,19 @@ router.put(
       const response = question.responses.filter(
         (response) => response._id.toString() === req.params.responseid
       );
-
       if (
-        response[0].likes.filter(
+        response[0].rep_likes.filter(
           (like) => like.user.toString() === req.user._id
         ).length === 0
       ) {
         return res.status(400).json({ msg: "response not liked yet" });
       }
-      const item = response[0].likes
+      const item = response[0].rep_likes
         .map((like) => like.user)
         .indexOf(req.user._id);
-      response[0].likes.splice(item, 1);
+      response[0].rep_likes.splice(item, 1);
       await question.save();
-      res.json(question.likes);
+      res.json(question.rep_likes);
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server error.");

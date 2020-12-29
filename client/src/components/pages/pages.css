@@ -35,3 +35,7 @@ a {
 .upvote.on {
     background-position: 0 2px;
   }
+
+.margin{
+    margin: 0px 20px;
+}
