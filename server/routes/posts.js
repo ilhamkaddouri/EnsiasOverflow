@@ -244,6 +244,7 @@ router.put("/like/:questionid", verify, async (req, res) => {
         .length > 0
     ) {
       return res.status(400).json({ msg: "question already liked" });
+      
       /**
        * Here we need to dislike 
        */
@@ -289,6 +290,45 @@ router.put("/unlike/:questionid", verify, async (req, res) => {
     res.status(500).send("Server error.");
   }
 });
+
+
+
+// @route       PUT api/questions/like/:questionid
+// @desc        unlike a question
+// @access      Private
+router.put("/unlike/:questionid", verify, async (req, res) => {
+  try{
+  const question = await Question.findById(req.params.questionid);
+  if (!question) return res.send({ msg: "question not found" });
+  
+  if (
+      question.qst_dislikes.filter((like) => like.user.toString() === req.user._id)
+       .length > 0
+   ) {
+     return res.status(400).json({ msg: "question already disliked " });
+   }
+  
+  const item = question.qst_likes.filter(like => like.user.toString() === req.user._id);
+  console.log("my item"+item)
+  if (
+      item && question.qst_likes.filter((like) => like.user.toString() === req.user._id).length >0
+   ) {
+       console.log('exist an item')
+      question.qst_likes.splice(item,1)
+   }
+ 
+  question.qst_dislikes.unshift({user : req.user._id})
+  console.log(question.qst_dislikes.length);
+  await question.save()
+  res.json(question.qst_dislikes.length)
+  }catch(err){
+      console.error(err.message);
+      res.status(500).send('Server error.');
+  }
+});
+
+
+
 
 /**
  * Upvote a response to a question

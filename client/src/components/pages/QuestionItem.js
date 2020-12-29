@@ -88,7 +88,7 @@ function QuestionItem({ qst }) {
 
               <span> {like} </span>
             </button>
-            <button
+            {/* <button
               type="button"
               className="btn btn-danger"
               onClick={() => {
@@ -97,7 +97,7 @@ function QuestionItem({ qst }) {
             >
               <i className="fa fa-thumbs-down"></i>{" "}
               {qst.qst_dislikes.length > 0 && <span> {dislike}</span>}
-            </button>
+            </button> */}
             <Link to={`/posts/${qst._id}`} 
             className="btn btn-outline-success margin"
            >

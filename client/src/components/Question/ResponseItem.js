@@ -10,7 +10,8 @@ const ResponseItem = ({ response, questionId }) => {
   const handleLike = (res_id) => {
     const id = res_id;
     axios
-      .put("/posts/like/" + questionId + "/responses/" + id, null, {
+      .put("/posts/like/" + questionId + "/responses/" + id, null, 
+      {
         headers: { "auth-token": localStorage.getItem("auth-token") },
       })
       .then((res) => {
@@ -59,7 +60,7 @@ const ResponseItem = ({ response, questionId }) => {
               <i className="fa fa-thumbs-up"></i>{" "}
               <span>{like}</span>
             </button>
-            <button
+            {/* <button
               type="button"
               className="btn btn-danger"
               onClick={() => {
@@ -69,7 +70,7 @@ const ResponseItem = ({ response, questionId }) => {
               <i className="fa fa-thumbs-down"></i>
               {" "}
                {<span>{dislike}</span>}
-            </button>
+            </button> */}
           </div>
         </Card.Body>
       </Card>

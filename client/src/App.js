@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Axios from 'axios';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Header from "./components/layout/header";
-import home from "./components/pages/home";
+import home from "./components/layout/home";
 import login from "./components/auth/login";
 import register from "./components/auth/reg";
 import "./components/layout/style.css";

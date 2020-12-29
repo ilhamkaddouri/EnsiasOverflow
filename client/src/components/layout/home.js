@@ -2,7 +2,7 @@ import React from 'react';
 import {Fragment} from 'react';
 import Register from '../auth/reg' ;
 import Login from '../auth/login';
-import Footer from '../layout/Footer';
+import Footer from './Footer';
 import {Link} from "react-router-dom";
 import ErrorNotice from "../misc/ErrorNotice"
 import Post_question from "../pages/post_question"

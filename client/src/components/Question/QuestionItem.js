@@ -1,7 +1,10 @@
 import React,{Fragment} from 'react'
 import Card from "react-bootstrap/Card";
+import ErrorNotice from "../misc/ErrorNotice";
+
 const QuestionItem =({question}) => {
     return (
+      
         <Fragment>
           <h3 className=''>{question.qst_title}</h3>
         <Card style={{ width: "70vw" ,borderColor:'black'}}>
