@@ -39,7 +39,7 @@ export default function Options() {
         ) : (
         <>
         <button onClick={Questions} className="text-primary">Questions</button>
-          <button onClick={register} className="text-primary">Register</button>
+          <button onClick={register}>Register</button>
           <button onClick={login}>Log in</button>
          
         </>
