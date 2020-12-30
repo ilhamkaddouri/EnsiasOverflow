@@ -33,12 +33,12 @@ export default function Options() {
         <>      
         {/* We need to add the dynamic search bar  */}
         <button onClick={Questions} className="text-primary">Questions</button> 
-        <button onClick={ask}>Ask a question</button> 
+        <button onClick={ask} className="text-primary">Ask a question</button> 
         <button onClick={logout}>Log out</button> 
         </>
         ) : (
         <>
-        <button onClick={Questions}>Questions</button>
+        <button onClick={Questions} className="text-primary">Questions</button>
           <button onClick={register}>Register</button>
           <button onClick={login}>Log in</button>
          
