@@ -228,69 +228,62 @@ router.get("/reponses/:questionid", async (req, res) => {
 /**
  *Upvote a question
  */
-
-// @route       PUT api/posts/like/:questionid
-// @desc        like a question
-// @access      Private
 router.put("/like/:questionid", verify, async (req, res) => {
   try {
     const qst = await Question.findById(req.params.questionid);
     // Object.assign(question,req.body)
     // console.log(qst);
     if (!qst) return res.send({ msg: "question not found" });
-    console.log( qst.qst_likes.filter((like) => like.user.toString() === req.user._id));
+    
     if (
       qst.qst_likes.filter((like) => like.user.toString() === req.user._id)
         .length > 0
     ) {
-      return res.status(400).json({ msg: "question already liked" });
-
-      /**
-       * Here we need to dislike 
-       */
+      const item = qst.qst_likes.filter((like) => like.user.toString() === req.user._id)
+      console.log(item)
+      qst.qst_likes.splice(item,1)
+      //return res.status(400).json({ msg: "question already liked" });
     }
-    qst.qst_likes.unshift({ user: req.user._id });
+    else qst.qst_likes.unshift({ user: req.user._id });
 
     await qst.save();
     res.json(qst);
   } catch (err) {
-    console.error(err.message);
+    console.error("error"+err.message);
     res.status(500).send(err);
   }
 });
 
+router.put(
+  "/like/:questionid/responses/:responseid",
+  verify,
+  async (req, res) => {
+    try {
+      const question = await Question.findById(req.params.questionid);
+      if (!question) return res.send({ msg: "question not found" });
 
-router.put("/unlike/:questionid", verify, async (req, res) => {
-  try {
-    const qst = await Question.findById(req.params.questionid);
-    if (!qst) return res.send({ msg: "question not found" });
+      const response = question.responses.filter(
+        (response) => response._id.toString() === req.params.responseid
+      );
 
-    // if (
-    //   qst.qst_likes.filter((like) => like.user.toString() === req.user._id)
-    //     .length === 0
-    // ) {
-    //   return res.status(400).json({ msg: "qst not liked yet" });
-    // }
+      if (
+        response[0].rep_likes.filter(like => like.user.toString() === req.user._id).length > 0
+      ) {
+        const item = response[0].rep_likes.filter((like) => like.user.toString() === req.user._id)
+        response[0].rep_likes.splice(item[0],1)
 
-    if (
-      qst.qst_dislikes.filter((like) => like.user.toString() === req.user._id)
-        .length > 0
-    ) {
-      return res.status(400).json({ msg: "question already disliked" });
+      }else{
+        response[0].rep_likes.unshift({ user: req.user._id });
+      }
+      await question.save();
+      res.json(response[0]);
+     
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server error.");
     }
-
-    console.log(qst.qst_dislikes.length);
-    const item = qst.qst_likes.map((like) => like.user).indexOf(req.user._id);
-    qst.qst_likes.splice(item, 1);
-    qst.qst_dislikes.unshift({ user: req.user._id });
-    await qst.save();
-    res.json(qst);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server error.");
   }
-});
-
+);
 
 
 // @route       PUT api/questions/like/:questionid
