@@ -30,10 +30,10 @@ app.use(express.json()); // to be able to read the json data posted
  * Cross origin resource sharing
  */
 app.use(corse());
-
+app.use(express.static(__dirname + '/public'));
 /**Routes Middleware */
 app.use('/api/user', authRoute); /* Prefix for the routes in ./routes/auth.js */
 app.use('/api/posts', postRoute);
 
 /** Start Node Server */
-app.listen(5000, ()=> console.log("................. Server Up and running ^o^ ! "));
+app.listen(5000, ()=> console.log(" //*/*/ \\\ *// Server Up and running ^o^ /*//\_/**** "));

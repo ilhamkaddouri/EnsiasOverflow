@@ -5,17 +5,30 @@ import Axios from "axios";
 import ErrorNotice from "../misc/ErrorNotice";
 import SuccessNotice from "../misc/SuccessNotice";
 // import List from '@editorjs/list';
+import QuillEditor from "./editor/QuillEditor";
+
 
 export default function Post_question() {
 
-  const userData = useContext(UserContext);
+  
+  const userData = useContext(UserContext)
+
+  const onEditorChange = (value) =>
+  {
+    setContent(value);
+  } 
+  const onFilesChange = (files) => {
+    setFiles(files)
+}
+
 
   /** Successfully accessed userData */
   // console.log(userData.userData.token);
-
+  const [files, setFiles] = useState([])
   const [qst_title, setTitle] = useState();
   const [qst_content, setContent] = useState();
 
+  
   /** Error posting the question */
   const [error, setError] = useState();
 
@@ -82,21 +95,36 @@ export default function Post_question() {
                 Keep it simple !
               </small>
             </div>
-            <div className="form-group">
+           <div className="form-group">
               <label for="">Content</label>
-              <textarea
+
+              <div id="ql-editor">
+                  <QuillEditor 
+                  className="ql-editor"
+                    placeholder="Start Posting Something"
+                    onEditorChange={onEditorChange}
+                    onFilesChange={onFilesChange}
+                    // onFilesChange={onFilesChange}
+
+                  />
+                </div>
+              {/* <textarea
                 type="text"
                 className="form-control full-width"
                 id="qst_content"
                 placeholder="Content of the question"
                 onChange={(e) => setContent(e.target.value)}
-              />
-
+              /> */}
               
-            </div>
+            </div> 
+           
             <button type="submit" className="btn btn-primary">
               Post
             </button>
+
+               
+            
+
           </form>
         </div>
       </div>

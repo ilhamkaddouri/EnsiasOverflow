@@ -22,7 +22,7 @@ export default function Login() {
        //* Here we call an instance of the server route that will proceed the request of type post
        //*using */
       const loginRes = await Axios.post(
-        "http://localhost:5000/api/user/login",
+        "/user/login",
         loginUser
       );
       setUserData({

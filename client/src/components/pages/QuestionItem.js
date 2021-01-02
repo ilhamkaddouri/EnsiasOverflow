@@ -76,7 +76,13 @@ function QuestionItem({ qst }) {
             {" "}
             On : {qst.asked_date.substring(0, 10)}{" "}
           </Card.Subtitle>
-          <Card.Text>{qst.qst_content}</Card.Text>
+          <Card.Text>
+          <div dangerouslySetInnerHTML={{__html: qst.qst_content }}>
+          
+          </div>
+         
+          
+          </Card.Text>
           <div className="ml-auto">
             <button
               type="button"
