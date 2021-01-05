@@ -31,6 +31,7 @@ app.use(express.json()); // to be able to read the json data posted
  */
 app.use(corse());
 app.use(express.static(__dirname + '/public'));
+
 /**Routes Middleware */
 app.use('/api/user', authRoute); /* Prefix for the routes in ./routes/auth.js */
 app.use('/api/posts', postRoute);

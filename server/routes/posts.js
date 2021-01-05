@@ -54,7 +54,6 @@ router.post("/ask", verify, async (req, res) => {
 
   // const result = await User.find({}, null, { sort: { email: 1 }});
   const result = await User.findById(user_id);
-  console.log(result.username);
 
   const question = new Question({
     user: user_id,
@@ -72,12 +71,23 @@ router.post("/ask", verify, async (req, res) => {
 });
 /** to get all questions */
 router.get("/all", async (req, res) => {
-  try {
-    const questions = await Question.find();
-    res.json(questions);
-  } catch (err) {
-    res.status(500).send(err);
-  }
+
+  Question.find()
+        .populate("user")
+        .exec((err, questions) => {
+            if (err) return  res.status(500).send(err);
+            res.status(200).json(questions);
+            console.log(questions)
+        });
+
+
+
+  // try {
+  //   const questions = await Question.find();
+  //   res.json(questions);
+  // } catch (err) {
+  //   res.status(500).send(err);
+  // }
 });
 
 /** Displays the question by its id */
@@ -94,15 +104,27 @@ router.get("/all", async (req, res) => {
 // @desc        find a question by id
 // @access      public
 router.get("/:questionId", async (req, res) => {
-  try {
-    const question = await Question.findById(req.params.questionId);
-    if (!question) {
-      return res.status(404).json({ msg: "Question not found." });
-    }
-    res.send(question);
-  } catch (err) {
-    res.status(401).send({ nsg: err });
-  }
+  // try {
+  //   const question = await Question.findById();
+  //   if (!question) {
+  //     return res.status(404).json({ msg: "Question not found." });
+  //   }
+  //   res.send(question);
+  // } catch (err) {
+  //   res.status(401).send({ nsg: err });
+  // }
+  // console.log("Hello");
+ Question.findById({"_id": req.params.questionId})
+        .populate('user')
+        .exec((err, question) => {
+          if (!question) {
+                return res.status(404).json({ msg: "Question not found." });
+          }
+          if (err) return res.status(401).send({ nsg: err });
+            res.send(question);
+            console.log(question.user.username);
+        })
+        
 });
 
 // @route       POST api/questions/respond/:questionid
