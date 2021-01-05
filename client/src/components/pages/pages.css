@@ -39,3 +39,8 @@ a {
 .margin{
     margin: 0px 20px;
 }
+
+.ql-editor{
+    background-color: #fffffe;
+    min-height:300px;
+}

@@ -4,15 +4,40 @@ const Question = require("../model/question");
 var mongoose = require("mongoose");
 const verify = require("../routes/verifyToken");
 const { findById } = require("../model/user");
+const multer = require("multer");
 
-// router.get('/', verify, (req,res)=>{
-//     // res.json({posts :
-//     //     {
-//     //       title : 'my first post',
-//     //       description : 'Random data you should not have access to without being logged in'
-//     // }})
-//     res.send(req.user); // The user_id is accessible to all the routes that verify the token
-// });
+
+/** =================================== 
+ *             UPLOAD IMAGES 
+ * ======================================/
+ **/
+let storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+      cb(null, "../client/public/uploads/");
+  },
+  filename: (req, file, cb) => {
+      cb(null, `${Date.now()}_${file.originalname}`);
+  },
+  fileFilter: (req, file, cb) => {
+      const ext = path.extname(file.originalname)
+      if (ext !== '.jpg' && ext !== '.png' && ext !== '.mp4') {
+          return cb(res.status(400).end('only jpg, png, mp4 is allowed'), false);
+      }
+      cb(null, true)
+  }
+});
+
+const upload = multer({ storage: storage }).single("file");
+
+router.post("/uploadfiles", (req, res) => {
+    upload(req, res, err => {
+        if (err) {
+            return res.json({ success: false, err });
+        }
+        return res.json({ success: true, url: res.req.file.path, fileName: res.req.file.filename });
+    });
+});
+
 
 /** to ask questions */
 router.post("/ask", verify, async (req, res) => {
