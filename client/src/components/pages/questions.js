@@ -64,7 +64,8 @@ const Questions = () =>{
 
           <QuestionItem key={qst._id} qst={qst} />
         ))}
-        <Pagination postsPerPage={postsPerPage} totalPosts={qsts.length} paginate={paginate} />
+
+        {searchItem==='' && <Pagination postsPerPage={postsPerPage} totalPosts={qsts.length} paginate={paginate} />}
         
         
         {/* <div>
