@@ -1,6 +1,8 @@
 import React, { Fragment, useEffect, useState } from "react";
 import axios from "axios";
 import QuestionItem from "../pages/QuestionItem";
+import Pagination from './pagination'
+import {message} from "antd";
 const inputstyle={
     marginTop : '40px',
     width: "70vw",
@@ -9,11 +11,13 @@ const inputstyle={
     paddingLeft: '10px',
     margin:'autp' 
 }
-function Questions() {
+const Questions = () =>{
   const [qsts, setQsts] = useState([]);
   const [searchItem, setSearchItem] = useState('');
   const [user, setUser] = useState({});
   const [visible, setVisible] = useState(3);
+  const [currentPage,setCurrentPage] = useState(1)
+  const [postsPerPage,setPostsPerPage] = useState(5)
 
   const key = qsts;
   useEffect(() => {
@@ -33,6 +37,12 @@ function Questions() {
     setVisible(qsts.length);
   };
 
+  const indexOfLastPost = currentPage*postsPerPage
+  const indexOfFirstPost = indexOfLastPost-postsPerPage;
+  const currentPosts = qsts.slice(indexOfFirstPost,indexOfLastPost)
+
+  const paginate = (pageNumber)=>setCurrentPage(pageNumber) 
+
   return (
     <Fragment>
 
@@ -50,16 +60,18 @@ function Questions() {
           } else if (qst.qst_title.toLowerCase().includes(searchItem.toLowerCase())) {
             return qst;
           }
-        }).slice(0, visible).map((qst) => (
+        }).slice(indexOfFirstPost,indexOfLastPost).map((qst) => (
 
           <QuestionItem key={qst._id} qst={qst} />
         ))}
-
-        <div>
+        <Pagination postsPerPage={postsPerPage} totalPosts={qsts.length} paginate={paginate} />
+        
+        
+        {/* <div>
           {visible < qsts.length &&
             <button className='btn btn-success' onClick={loadmore}>See more</button>}
 
-        </div>
+        </div> */}
       </div>
     </Fragment>
   );
