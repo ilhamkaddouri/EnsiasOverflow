@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+
 import Axios from "axios";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Header from "./components/layout/header";
@@ -12,7 +13,6 @@ import UserContext from "./context/UserContext";
 import Post_question from "./components/pages/post_question";
 import Questions from "./components/pages/questions";
 import Question from "./components/Question/Question";
-
 export default function App() {
   // state = {
   //   questions : [],

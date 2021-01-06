@@ -17,7 +17,7 @@ Quill.register('modules/ImageResize', ImageResize);
 const __ISMSIE__ = navigator.userAgent.match(/Trident/i) ? true : false;
 
 // Quill.register('modules/clipboard', PlainClipboard, true);
-const imageResize = Quill.register('modules/imageResize', ImageResize)
+// const imageResize = Quill.register('modules/imageResize', ImageResize);
 const QuillClipboard = Quill.import("modules/clipboard");
 
 
@@ -222,7 +222,7 @@ class QuillEditor extends React.Component {
   }
 
   handleChange = (html) => {
-    console.log("html", html);
+    // console.log("html", html);
     // https://youtu.be/BbR-QCoKngE
     // https://www.youtube.com/embed/ZwKhufmMxko
     // https://tv.naver.com/v/9176888
@@ -475,10 +475,8 @@ class QuillEditor extends React.Component {
   }
 
   modules = {
-    syntax: false,
+    syntax: true,
     ImageResize: {},
-      
-
     toolbar: {
       container: "#toolbar",
       //id ="toorbar"는  그 위에 B I U S I V F P 이거 있는 곳이다.
@@ -494,9 +492,8 @@ class QuillEditor extends React.Component {
   formats = [
     //   "list",
     'header',
-    'bold', 'italic', 'underline', 'strike', 'blockquote',
-    'list', 'bullet', 'indent',
-    'link', 'image', 'color'
+        'bold', 'italic', 'underline', 'strike',
+        'image', 'video', 'file', 'link',"code-block", "video", "blockquote", "clean", "color"
   ];
 }
 

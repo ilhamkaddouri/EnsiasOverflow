@@ -6,7 +6,7 @@ import ErrorNotice from "../misc/ErrorNotice";
 import SuccessNotice from "../misc/SuccessNotice";
 // import List from '@editorjs/list';
 import QuillEditor from "./editor/QuillEditor";
-
+import {message} from "antd"; 
 
 export default function Post_question() {
 
@@ -41,7 +41,11 @@ export default function Post_question() {
     try {
       const token = userData.userData.token;
       if (token == undefined) {
-        setError("Log in to ask a question. ");
+        message.error('You must be logged in to post a question.');
+
+        setTimeout(() => {
+           
+        }, 2500);
       }
 
       const newQuestion = {
@@ -54,10 +58,15 @@ export default function Post_question() {
       });
 
       if (postres) {
-        setSuccess("Question posted successfully !");
+        // setSuccess("Question posted successfully !");
+        message.success('Post Created!');
+
+                    setTimeout(() => {
+                       
+                    }, 2500);
       }
     } catch (err) {
-      err.response.data.msg && setError(err.response.data.msg);
+      err.response.data.msg && message.warning(err.response.data.msg); 
     }
   };
   return (

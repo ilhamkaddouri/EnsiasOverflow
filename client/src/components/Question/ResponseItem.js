@@ -2,7 +2,9 @@ import React, { Fragment, useState } from "react";
 import Card from "react-bootstrap/Card";
 import axios from "axios";
 import ErrorNotice from "../misc/ErrorNotice";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
+import {message} from "antd"; 
+
 
 const ResponseItem = ({ response, questionId }) => {
   const [isLiked, updateLike] = useState(false);
@@ -12,14 +14,16 @@ const ResponseItem = ({ response, questionId }) => {
   // const { setUserData } = useContext(UserContext);
   const handleLike = (res_id) => {
     const id = res_id;
-    const token = localStorage.getItem("auth-token")
-    if (token == "")
-    {
-      setError("You need to be logged in to like a response.")
+    const token = localStorage.getItem("auth-token");
+    if (token == "") {
+      message.error('You must be logged in to perform this action.');
+
+      setTimeout(() => {
+         
+      }, 2500);
     }
     axios
-      .put("/posts/like/" + questionId + "/responses/" + id, null, 
-      {
+      .put("/posts/like/" + questionId + "/responses/" + id, null, {
         headers: { "auth-token": localStorage.getItem("auth-token") },
       })
       .then((res) => {
@@ -27,9 +31,8 @@ const ResponseItem = ({ response, questionId }) => {
         setlikes(res.data.rep_likes.length);
         setdislikes(res.data.rep_dislikes.length);
       })
-      .catch((err) =>  err.response.data.msg && setError(err.response.data.msg));
+      .catch((err) => err.response.data.msg && setError(err.response.data.msg));
   };
-  
 
   const handleDislike = (res_id) => {
     const id = res_id;
@@ -48,19 +51,22 @@ const ResponseItem = ({ response, questionId }) => {
   return (
     <Fragment>
       <Card style={{ width: "70vw", margin: "5px", borderColor: "black" }}>
-      
         <Card.Body>
           <Card.Subtitle className="mb-2 text-muted">
-           Answered by :<Card.Link href="#LinktoUser"> {response.username} </Card.Link>
+            Answered by :
+            <Card.Link href="#LinktoUser"> {response.username} </Card.Link>
           </Card.Subtitle>
           <Card.Subtitle className="mb-1 text-muted">
             {" "}
             On : {response.rep_date.substring(0, 10)}{" "}
           </Card.Subtitle>
-          <Card.Text>{response.rep_content}</Card.Text>
+          <Card.Text>
+            <div
+              dangerouslySetInnerHTML={{ __html: response.rep_content }}
+            ></div>
+          </Card.Text>
           <div className="ml-auto">
-    
-          {error && (<>
+            {/* {error && (<>
             <ErrorNotice
               message={error}
               clearError={() => setError(undefined)}
@@ -68,7 +74,7 @@ const ResponseItem = ({ response, questionId }) => {
             />
           </>
            
-          )}
+          )} */}
 
             <button
               type="button"
@@ -78,8 +84,7 @@ const ResponseItem = ({ response, questionId }) => {
                 handleLike(response._id);
               }}
             >
-              <i className="fa fa-thumbs-up"></i>{" "}
-              <span>{like}</span>
+              <i className="fa fa-thumbs-up"></i> <span>{like}</span>
             </button>
             {/* <button
               type="button"

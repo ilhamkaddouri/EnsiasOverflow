@@ -1,9 +1,11 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useContext } from "react";
 import { Container, Button } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import "font-awesome/css/font-awesome.min.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import UserContext from "../../context/UserContext";
+import {message} from "antd"; 
 
 function QuestionItem({ qst }) {
   /**
@@ -12,7 +14,7 @@ function QuestionItem({ qst }) {
    */
   const [like, setlikes] = useState([qst.qst_likes.length]);
   const [dislike, setdislikes] = useState([qst.qst_dislikes.length]);
-
+  const userData = useContext(UserContext)
   //   useEffect(() => {
   //     axios.get('h')
   //     .then(res => {setQsts(res.data) })
@@ -31,6 +33,15 @@ function QuestionItem({ qst }) {
 
   const handleLike = (id) => {
     // const id = _id;
+    const token = userData.userData.token;
+    if (token == undefined) {
+      message.error('You must be logged in to perform this action.');
+
+      setTimeout(() => {
+         
+      }, 2500);
+    }
+
     axios
       .put("/posts/like/" + id, null, {
         headers: { "auth-token": localStorage.getItem("auth-token") },
@@ -45,23 +56,23 @@ function QuestionItem({ qst }) {
       });
   };
 
-  const handleDislike = (id) => {
-    axios
-      .put("/posts/unlike/" + id, null, {
-        headers: { "auth-token": localStorage.getItem("auth-token") },
-      })
-      .then((result) => {
-        /**
-         * Here the result displays the dislikes.lenght
-         */
-        // console.log(result.data.qst_likes.length);
-        setlikes(result.data.qst_likes.length);
-        setdislikes(result.data.qst_dislikes.length);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // const handleDislike = (id) => {
+  //   axios
+  //     .put("/posts/unlike/" + id, null, {
+  //       headers: { "auth-token": localStorage.getItem("auth-token") },
+  //     })
+  //     .then((result) => {
+  //       /**
+  //        * Here the result displays the dislikes.lenght
+  //        */
+  //       // console.log(result.data.qst_likes.length);
+  //       setlikes(result.data.qst_likes.length);
+  //       setdislikes(result.data.qst_dislikes.length);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   return (
     <Fragment>
@@ -70,7 +81,7 @@ function QuestionItem({ qst }) {
           <Card.Title>{qst.qst_title}</Card.Title>
           
           <Card.Subtitle className="mb-2 text-muted">
-            Asked by :<Card.Link href="#LinktoUser"> {qst.username} </Card.Link>
+            Asked by :<Card.Link href="#LinktoUser"> {qst.user.username} </Card.Link>
           </Card.Subtitle>
           <Card.Subtitle className="mb-1 text-muted">
             {" "}
