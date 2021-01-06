@@ -1,13 +1,12 @@
 import React, { Fragment, useState } from "react";
 import Card from "react-bootstrap/Card";
 import axios from "axios";
-import ErrorNotice from "../misc/ErrorNotice";
-import { Link } from "react-router-dom";
+
 import {message} from "antd"; 
 
 
 const ResponseItem = ({ response, questionId }) => {
-  const [isLiked, updateLike] = useState(false);
+ 
   const [like, setlikes] = useState([response.rep_likes.length]);
   const [dislike, setdislikes] = useState([response.rep_dislikes.length]);
   const [error, setError] = useState();

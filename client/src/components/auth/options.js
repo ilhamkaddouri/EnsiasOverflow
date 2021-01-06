@@ -1,8 +1,7 @@
 import React, {useContext} from "react";
 import UserContext from "../../context/UserContext"; 
 import { useHistory } from "react-router-dom";
-import { Container } from "react-bootstrap";
-import Questions from "../pages/questions";
+
 export default function Options() {
 
     const {userData, setUserData} = useContext(UserContext);
