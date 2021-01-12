@@ -9,24 +9,20 @@ import login from "./components/auth/login";
 import register from "./components/auth/reg";
 import "./components/layout/style.css";
 import "./components/pages/pages.css";
+import "./components/pages/searchBar.css";
 import UserContext from "./context/UserContext";
+import QuestionContext from "./context/QuestionContext";
+
 import Post_question from "./components/pages/post_question";
 import Questions from "./components/pages/questions";
 import Question from "./components/Question/Question";
+
 export default function App() {
-  // state = {
-  //   questions : [],
-  // }
-  //  getQuestion = () => {
-  //     Axios.get('http://localhost:5000/api/posts/all').then((response)=>{
-  //       const data = response.data;
-  //       console.log("Data received :) ! ");
-  //       this.setState({questions : data});
-  //       console.log(data);
-  //     }).catch(()=>{
-  //       console.log("Problem receiving data");
-  //     })
-  //  }
+  const getQuestion = () => {};
+
+  const [questionData, setQuestionData] = useState();
+
+  useEffect(() => {}, [questionData]);
 
   const [userData, setUserData] = useState({
     token: undefined,
@@ -40,12 +36,10 @@ export default function App() {
         localStorage.setItem("auth-token", "");
         token = "";
       }
-      const tokenRes = await Axios.post(
-        "/user/verifytoken",
-        null,
-        { headers: { "auth-token": token } }
-      );
-      //  console.log(tokenRes.data);
+      const tokenRes = await Axios.post("/user/verifytoken", null, {
+        headers: { "auth-token": token },
+      });
+
       if (tokenRes.data) {
         const userRes = await Axios.get("/user/", {
           headers: {
@@ -60,22 +54,34 @@ export default function App() {
     };
 
     checkLoggedIn();
+
+    const getQuestions = async () => {
+      Axios.get("/posts/all")
+        .then((res) => {
+          setQuestionData(res.data);
+          console.log(res.data);
+        })
+        .catch((err) => console.log(err));
+    };
+    getQuestions();
   }, []);
 
   return (
     <>
       <BrowserRouter>
         <UserContext.Provider value={{ userData, setUserData }}>
-          <Header></Header>
-          <Switch>
-            <Route exact path="/" component={home} />
-            <Route path="/login" component={login} />
-            <Route path="/register" component={register} />
-            {/* check logged in */}
-            <Route path="/posts/ask" component={Post_question} />
-            <Route path="/posts/all" component={Questions} />
-            <Route path="/posts/:id" component={Question} />
-          </Switch>
+          <QuestionContext.Provider value={{ questionData, setQuestionData }}>
+            <Header></Header>
+            <Switch>
+              <Route exact path="/" component={home} />
+              <Route path="/login" component={login} />
+              <Route path="/register" component={register} />
+              {/* check logged in */}
+              <Route path="/posts/ask" component={Post_question} />
+              <Route path="/posts/all" component={Questions} />
+              <Route path="/posts/:id" component={Question} />
+            </Switch>
+          </QuestionContext.Provider>
         </UserContext.Provider>
       </BrowserRouter>
     </>

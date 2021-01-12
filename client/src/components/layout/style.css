@@ -4,7 +4,6 @@
     margin : 0;
     padding: 0;
     box-sizing: border-box;
-    
     font-family: 'Lato', sans-serif;
 }
 
@@ -133,4 +132,10 @@ color:rgb(255, 247, 247);
     height: 100px;
     width: 100%;
    
+
+}
+
+#searchBar{
+    background-color: #2199df;
+    color: blue;
 }

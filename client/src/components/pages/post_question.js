@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { Fragment } from "react";
+import React, { useState, useContext, Fragment } from "react";
+
 import UserContext from "../../context/UserContext";
 import Axios from "axios";
 import ErrorNotice from "../misc/ErrorNotice";
@@ -20,8 +20,6 @@ export default function Post_question() {
   const onFilesChange = (files) => {
     setFiles(files)
 }
-
-
   /** Successfully accessed userData */
   // console.log(userData.userData.token);
   const [files, setFiles] = useState([])
@@ -108,14 +106,13 @@ export default function Post_question() {
               <label for="">Content</label>
 
               <div id="ql-editor">
-                  <QuillEditor 
-                  className="ql-editor"
-                    placeholder="Start Posting Something"
-                    onEditorChange={onEditorChange}
-                    onFilesChange={onFilesChange}
-                    // onFilesChange={onFilesChange}
-
-                  />
+              <QuillEditor 
+              className="ql-editor"
+                placeholder="Start Posting Something"
+                onEditorChange={onEditorChange}
+                onFilesChange={onFilesChange}
+                // onFilesChange={onFilesChange}
+             />
                 </div>
               {/* <textarea
                 type="text"

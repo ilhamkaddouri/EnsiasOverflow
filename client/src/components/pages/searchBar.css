@@ -1,0 +1,16 @@
+#SearchBar {
+  background-color: #ffffff;
+  color: #293e55;
+  font-weight: 800;
+
+  font-family: Georgia, 'Times New Roman', Times, serif
+}
+
+#SearchBar::placeholder{
+  color: #293e55;
+}
+
+.head{
+   width: 50vw;
+   /* height: 20px; */
+}

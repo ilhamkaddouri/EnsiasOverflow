@@ -11,6 +11,8 @@ dotenv.config();
  */
 const authRoute = require('./routes/auth');
 const postRoute = require('./routes/posts');
+const tagRoute = require('./routes/tags');
+
 
 // Connect to DataBase
 
@@ -35,6 +37,8 @@ app.use(express.static(__dirname + '/public'));
 /**Routes Middleware */
 app.use('/api/user', authRoute); /* Prefix for the routes in ./routes/auth.js */
 app.use('/api/posts', postRoute);
+app.use('/api/tags', tagRoute);
+
 
 /** Start Node Server */
 app.listen(5000, ()=> console.log(" //*/*/ \\\ *// Server Up and running ^o^ /*//\_/**** "));
