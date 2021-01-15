@@ -64,7 +64,7 @@ export default function Header() {
         <div class="input-group-append">
           <span class="input-group-text red lighten-3" id="basic-text1">
             <i aria-hidden="true">
-            <FontAwesomeIcon icon={faSearch} onClick={{}}/>
+            <FontAwesomeIcon icon={faSearch}/>
 
             </i>
           </span>

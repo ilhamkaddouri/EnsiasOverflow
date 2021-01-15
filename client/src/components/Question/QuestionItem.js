@@ -3,7 +3,10 @@ import Card from "react-bootstrap/Card";
 import ErrorNotice from "../misc/ErrorNotice";
 import "./style.css";
 import axios from "axios";
-
+import moment from 'moment'
+const spanStyle = {
+  color : 'black'
+}
 function QuestionItem({ question }) {
   // console.log(question.user.username);
 
@@ -37,7 +40,7 @@ function QuestionItem({ question }) {
             <div style={{ display: "flex", justifyContent: "flex-start" }}>
             Author: 
               <Card.Link href="#LinktoUser">
-              {}
+                  {questionAsked.username}
 
                </Card.Link>
             </div>
@@ -45,7 +48,7 @@ function QuestionItem({ question }) {
               className="mb-1 text-muted"
               style={{ display: "flex", justifyContent: "flex-end" }}
             >
-              On : {questionAsked.asked_date}
+              On : {moment(questionAsked.asked_date).format('LL')}, <span style={spanStyle}>{moment(questionAsked).fromNow()}</span>
             </div>
           </Card.Subtitle>
           <Card.Text>

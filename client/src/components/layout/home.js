@@ -9,7 +9,7 @@ import Post_question from "../pages/post_question"
 export default function home() {
     return (
         <Fragment>
-            <div className="container-fluid">
+            <div className="container-fluid mb-5">
                 <div className="row">
                     <div className="col-lg logan">
                         <h1 className="label">Bienvenue au EnsiasOverflow</h1>

@@ -6,7 +6,7 @@ import QuestionContext from "../../context/QuestionContext";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import moment from 'moment'
 import { message } from "antd";
 const inputstyle = {
   marginTop: "40px",
@@ -39,6 +39,18 @@ const Questions = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  const questionsByFilter = (e)=>{
+    message.loading({ content: "Loading...", key });
+    axios
+      .get(`/posts/all/${e}`)
+      .then((res) => {
+        setQsts(res.data);
+        setTimeout(() => {
+          message.success({ content: "Loaded!", key, duration: 1 });
+        }, 700);
+      })
+      .catch((err) => console.log(err));
+  }
   const loadmore = () => {
     setVisible(qsts.length);
   };
@@ -92,6 +104,15 @@ const Questions = () => {
         <div>
             <h1 className="title md">{qsts.length} Questions </h1>
         </div>
+        <div>
+          <div>
+            <i href=''  className='btn btn-light active'><a onClick={questionsByFilter('')}>Newest</a></i>
+            <i href='' className='btn btn-light'><a onClick={questionsByFilter('active')}>Active</a></i>
+            <i href='' className='btn btn-light'><a onClick={questionsByFilter('unasnwred')}>Unanswerd</a></i>
+            <i href='' className='btn btn-light'><a onClick={questionsByFilter('answred')}>Most Answerd</a></i>
+          </div>
+        </div>
+
         {qsts
           .filter((qst) => {
             if (searchItem === "") {

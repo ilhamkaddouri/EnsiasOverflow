@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import UserContext from "../../context/UserContext";
 import {message} from "antd"; 
+import moment from 'moment'
 
 function QuestionItem({ qst }) {
   /**
@@ -82,12 +83,17 @@ function QuestionItem({ qst }) {
           <Card.Title>{qst.qst_title}</Card.Title>
           
           <Card.Subtitle className="mb-2 text-muted">
-            Asked by :<Card.Link href="#LinktoUser"> {qst.user.username} </Card.Link>
+            By :<Card.Link href="#LinktoUser"> {qst.user.username} </Card.Link>
           </Card.Subtitle>
           <Card.Subtitle className="mb-1 text-muted">
             {" "}
             On : {qst.asked_date.substring(0, 10)}{" "}
-            asked : {Math.abs(Date.now  - new Date(qst.asked_date)).getMinutes()}
+           
+          </Card.Subtitle>
+          <Card.Subtitle className="mb-1 text-muted primary">
+            {" "}
+          
+            Asked : {moment(qst.asked_date).fromNow()} 
           </Card.Subtitle>
           <Card.Text>
           <div dangerouslySetInnerHTML={{__html: qst.qst_content }}>
