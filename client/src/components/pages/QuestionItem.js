@@ -12,6 +12,7 @@ function QuestionItem({ qst }) {
    * Here we Initialize the states with the Number values :
    *  Like & dislike which we call in the render method
    */
+  const dt = new Date(Date.now-qst.asked_date)
   const [like, setlikes] = useState([qst.qst_likes.length]);
   const [dislike, setdislikes] = useState([qst.qst_dislikes.length]);
   const userData = useContext(UserContext)
@@ -86,6 +87,7 @@ function QuestionItem({ qst }) {
           <Card.Subtitle className="mb-1 text-muted">
             {" "}
             On : {qst.asked_date.substring(0, 10)}{" "}
+            asked : {Math.abs(Date.now  - new Date(qst.asked_date)).getMinutes()}
           </Card.Subtitle>
           <Card.Text>
           <div dangerouslySetInnerHTML={{__html: qst.qst_content }}>

@@ -72,7 +72,7 @@ router.post("/ask", verify, async (req, res) => {
 /** to get all questions */
 router.get("/all", async (req, res) => {
 
-  Question.find()
+  await Question.find().sort({ asked_date: -1 })
         .populate("user")
         .exec((err, questions) => {
             if (err) return  res.status(500).send(err);

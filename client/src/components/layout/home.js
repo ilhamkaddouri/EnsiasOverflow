@@ -21,7 +21,10 @@ export default function home() {
                     </div>
                 </div>  
             </div>
+            <div className="container-fluid">
             <Footer/>
+            </div>
+           
 
 
         </Fragment>

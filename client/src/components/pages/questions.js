@@ -3,7 +3,7 @@ import axios from "axios";
 import QuestionItem from "../pages/QuestionItem";
 import Pagination from "./pagination";
 import QuestionContext from "../../context/QuestionContext";
-
+import 'bootstrap/dist/css/bootstrap.min.css'
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -89,8 +89,9 @@ const Questions = () => {
 
 <br/>
         
-
-        <h1 className="display-4 title md">Questions </h1>
+        <div>
+            <h1 className="title md">{qsts.length} Questions </h1>
+        </div>
         {qsts
           .filter((qst) => {
             if (searchItem === "") {
