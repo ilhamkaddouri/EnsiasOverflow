@@ -16,14 +16,19 @@ const inputstyle = {
   paddingLeft: "10px",
   margin: "autp",
 };
+
+const active ={
+  active : true
+}
 const Questions = () => {
   const [qsts, setQsts] = useState([]);
+  const [filtredQuestions,setfiltredQuestions]=useState(qsts)
   const [searchItem, setSearchItem] = useState("");
   const [user, setUser] = useState({});
   const [visible, setVisible] = useState(3);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(5);
-
+  const [active,setActive] = useState(false)
   const key = qsts;
 
   useEffect(() => {
@@ -32,6 +37,7 @@ const Questions = () => {
       .get("/posts/all")
       .then((res) => {
         setQsts(res.data);
+        setfiltredQuestions(res.data)
         setTimeout(() => {
           message.success({ content: "Loaded!", key, duration: 1 });
         }, 700);
@@ -40,16 +46,23 @@ const Questions = () => {
   }, []);
 
   const questionsByFilter = (e)=>{
-    message.loading({ content: "Loading...", key });
-    axios
-      .get(`/posts/all/${e}`)
-      .then((res) => {
-        setQsts(res.data);
-        setTimeout(() => {
-          message.success({ content: "Loaded!", key, duration: 1 });
-        }, 700);
-      })
-      .catch((err) => console.log(err));
+   if(e==='unanswred')
+   { const filtredbyanswer = qsts.filter(qst => qst.responses.length<=0)
+ 
+    setfiltredQuestions(filtredbyanswer)
+    setActive(true)
+   }
+
+    if(e==='answred'){
+      const filtred = qsts.filter(qst => qst.qst_likes.length>2)
+ 
+      setfiltredQuestions(filtred)
+   
+    }
+    if(e==='newest'){
+      setfiltredQuestions(qsts)
+    }
+    
   }
   const loadmore = () => {
     setVisible(qsts.length);
@@ -63,31 +76,22 @@ const Questions = () => {
 
 
 
-
+  let btnA = active ? 'active' : ''
 
   return (
+   
     <Fragment>
+    
       <div className="container">
-        {/* <div>
-          <input className="form-control"
-          id="SearchBar"
-            type="text"
-            placeholder="Search..."
-            style={inputstyle}
-            onChange={(Event) => setSearchItem(Event.target.value)}
-          />
-          <span class="glyphicon glyphicon-search form-control-feedback"> </span>
-        </div> */}
-
       <br/>
-        <div class="input-group md-form form-sm form-2 pl-0 head">
+      <div class="input-group md-form form-sm form-2 pl-0 head">
         <input
           class="form-control my-0 py-1 red-border"
           type="text"
           placeholder="Search"
           aria-label="Search"
           placeholder="Search..."
-            onChange={(Event) => setSearchItem(Event.target.value)}
+          onChange={(Event) => setSearchItem(Event.target.value)}
         />
         <div class="input-group-append">
           <span class="input-group-text red lighten-3" id="basic-text1">
@@ -99,34 +103,34 @@ const Questions = () => {
         </div>
       </div>
 
-<br/>
+      <br/>
         
+      <div>
+          <h1 className="title md">{filtredQuestions.length} Questions </h1>
+      </div>
+      <div>
         <div>
-            <h1 className="title md">{qsts.length} Questions </h1>
+          <i onClick={(e)=>questionsByFilter('newest')} className='btn btn-light active' >Newest</i>
+          <i onClick={(e)=>questionsByFilter('answred')} className='btn btn-light'>Most liked</i>
+          <i onClick={(e)=>questionsByFilter('unanswred')} className='btn btn-light' >Unanswerd</i>
+         
         </div>
-        <div>
-          <div>
-            <i href=''  className='btn btn-light active'><a onClick={questionsByFilter('')}>Newest</a></i>
-            <i href='' className='btn btn-light'><a onClick={questionsByFilter('active')}>Active</a></i>
-            <i href='' className='btn btn-light'><a onClick={questionsByFilter('unasnwred')}>Unanswerd</a></i>
-            <i href='' className='btn btn-light'><a onClick={questionsByFilter('answred')}>Most Answerd</a></i>
-          </div>
-        </div>
+      </div>
 
-        {qsts
-          .filter((qst) => {
-            if (searchItem === "") {
-              return qst;
-            } else if (
-              qst.qst_title.toLowerCase().includes(searchItem.toLowerCase())
-            ) {
-              return qst;
-            }
-          })
-          .slice(indexOfFirstPost, indexOfLastPost)
-          .map((qst) => (
-            <QuestionItem key={qst._id} qst={qst} />
-          ))}
+      {filtredQuestions
+        .filter((qst) => {
+          if (searchItem === "") {
+            return qst;
+          } else if (
+            qst.qst_title.toLowerCase().includes(searchItem.toLowerCase())
+          ) {
+            return qst;
+          }
+        })
+        .slice(indexOfFirstPost, indexOfLastPost)
+        .map((qst) => (
+          <QuestionItem key={qst._id} qst={qst} />
+        ))}
 
         {searchItem === "" && (
           <Pagination

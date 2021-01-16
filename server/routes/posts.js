@@ -79,16 +79,17 @@ router.get("/all", async (req, res) => {
             res.status(200).json(questions);
             
         });
-
-
-
-  // try {
-  //   const questions = await Question.find();
-  //   res.json(questions);
-  // } catch (err) {
-  //   res.status(500).send(err);
-  // }
+       
 });
+
+// router.get('/all/unanswred',async (req,res)=>{
+//   await Question.find().populate('user').exec((err,questions)=>{
+//         if (err) res.status(500).send(err)
+//         res.status(200).json(questions)
+//   }).filter(qst => qst.responses.length<0)
+//   console.log(questions.length)
+// })
+
 
 /** Displays the question by its id */
 // router.get("/all/qst", async (req, res) => {
