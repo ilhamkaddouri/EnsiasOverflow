@@ -19,14 +19,18 @@
     }
   } */
 
-* {
+body {
     margin : 0;
     padding: 0;
     box-sizing: border-box;
-    
+  
     font-family: 'Lato', sans-serif;
 }
-
+.app{
+  width: 100vw;
+  height: 100vh;
+  background-color :aqua
+}
 html {
     position: relative;
     min-height: 100%;

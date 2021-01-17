@@ -6,11 +6,15 @@ import Footer from './Footer';
 import {Link} from "react-router-dom";
 import ErrorNotice from "../misc/ErrorNotice"
 import Post_question from "../pages/post_question"
+
+import './style.css'
 export default function home() {
     return (
         <Fragment>
             <div className="container-fluid mb-5">
+                
                 <div className="row">
+               
                     <div className="col-lg logan">
                         <h1 className="label">Bienvenue au EnsiasOverflow</h1>
                         <p>Votre propre monde professionel</p>
